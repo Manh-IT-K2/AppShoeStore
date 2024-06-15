@@ -51,7 +51,7 @@ fun getProductList() : List<Products>{
             id = "3",
             color = Color(0xFF8B784D),
             price = 1200f,
-            name = "Shoes Pink",
+            name = "Shoes Dark Yellow",
             discount = 1000f,
             rating = 4.7f,
             imageRes = R.drawable.s3,
@@ -69,7 +69,7 @@ fun getProductList() : List<Products>{
         ),
         Products(
             id = "5",
-            color = Color.Gray,
+            color = Color(0xFFA66842),
             price = 1200f,
             name = "Shoes Brown",
             discount = 1000f,
@@ -79,9 +79,9 @@ fun getProductList() : List<Products>{
         ),
         Products(
             id = "6",
-            color = Color(0xFFA66842),
+            color = Color.Gray,
             price = 1200f,
-            name = "Shoes Pink",
+            name = "Shoes Gray",
             discount = 1000f,
             rating = 4.7f,
             imageRes = R.drawable.s6,
@@ -95,6 +95,16 @@ fun getProductList() : List<Products>{
             discount = 1000f,
             rating = 4.7f,
             imageRes = R.drawable.s7,
+            size = 8
+        ),
+        Products(
+            id = "8",
+            color = Color.Green,
+            price = 1200f,
+            name = "Shoes Green",
+            discount = 1000f,
+            rating = 4.7f,
+            imageRes = R.drawable.s8,
             size = 8
         )
     )
