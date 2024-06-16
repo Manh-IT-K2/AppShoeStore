@@ -2,6 +2,7 @@ package com.example.appshoestore.Component
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
@@ -26,6 +27,7 @@ import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
@@ -48,7 +50,8 @@ fun ProductItem(
             rating = 4.7f,
             imageRes = R.drawable.s1,
             size = 8
-        )
+        ),
+    onClick : ()-> Unit = {}
 ) {
     var color by remember {
         mutableStateOf(product.color)
@@ -57,6 +60,7 @@ fun ProductItem(
         modifier = Modifier
             .padding(20.dp)
             .size(168.dp, 210.dp)
+            .clickable { onClick.invoke() }
     ) {
 
         var isFavorite by remember {
@@ -118,6 +122,5 @@ fun ProductItem(
                 )
             )
         }
-
     }
 }
