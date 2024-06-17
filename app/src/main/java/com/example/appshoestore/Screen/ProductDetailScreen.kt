@@ -56,6 +56,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.appshoestore.ui.theme.f1
+import com.example.appshoestore.ui.theme.f2
+import com.example.appshoestore.ui.theme.f3
+import com.example.appshoestore.ui.theme.f4
+import com.example.appshoestore.ui.theme.f5
 import kotlinx.coroutines.delay
 
 @Composable
@@ -98,10 +103,10 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
     val animationProductRotate = animateFloatAsState(targetValue = productRotate, label = "")
     LaunchedEffect(key1 = true) {
         delay(150)
-        xOffset = 140.dp
+        xOffset = (-140).dp
         yOffset = (-130).dp
         productScale = 1f
-        productRotate = -30f
+        productRotate = 30f
     }
     Box(
         modifier = Modifier
@@ -140,7 +145,7 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
                 modifier = Modifier
                     .scale(animationProductScale.value)
                     .rotate(animationProductRotate.value)
-                    .padding(end = 48.dp, top = 30.dp)
+                    .padding(start = 48.dp, top = 30.dp)
                     .size(330.dp)
             )
             Row(
@@ -168,7 +173,9 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
                         style = TextStyle(
                             platformStyle = PlatformTextStyle(
                                 includeFontPadding = false
-                            )
+                            ),
+                            fontFamily = f1,
+                            fontWeight = FontWeight.Bold
                         )
                     )
                     Row(
@@ -218,7 +225,7 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
                     .fillMaxWidth()
                     .padding(top = 6.dp)
                     .padding(horizontal = 22.dp),
-                horizontalArrangement = Arrangement.spacedBy(10.dp)
+                horizontalArrangement = Arrangement.spacedBy(15.dp)
             ) {
                 ProductSizeCard(size = "8", isSelected = selectedSize == "8") {
                     selectedSize = "8"
@@ -276,7 +283,7 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
                     .padding(horizontal = 22.dp),
                 color = Color.Black,
                 fontWeight = FontWeight.Light,
-                style = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false))
+                style = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false), fontWeight = FontWeight.Light, fontFamily = f1)
             )
             //Spacer(modifier = Modifier.weight(1f))
             Row(
@@ -322,7 +329,7 @@ fun ProductSizeCard(
     } else {
         Color.White
     }
-    val border = if (isSelected) 0.dp else 0.8.dp
+    val border = if (isSelected) 0.dp else 1.dp
     var textColor = if (isSelected) Color.White else Color.Black
     Text(
         text = size,
@@ -352,10 +359,10 @@ fun ProductColor(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    val borderColor = if (isSelected) MaterialTheme.colors.primary else Color.Transparent
+    val borderColor = if (isSelected) MaterialTheme.colors.background else Color.Transparent
     Box(
         modifier = Modifier
-            .border(width = 0.5.dp, shape = CircleShape, color = borderColor)
+            .border(width = 1.dp, shape = CircleShape, color = borderColor)
             .padding(4.dp)
             .background(color = color, shape = CircleShape)
             .size(24.dp)
