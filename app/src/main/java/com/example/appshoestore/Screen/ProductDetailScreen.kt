@@ -22,18 +22,18 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
+import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.outlined.Star
 import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.FavoriteBorder
 import androidx.compose.material.icons.rounded.KeyboardArrowLeft
 import androidx.compose.material.icons.rounded.ShoppingCart
-import androidx.compose.material3.Button
-import androidx.compose.material3.ButtonDefaults
-import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
-import androidx.compose.material3.MaterialTheme
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
@@ -53,7 +53,6 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
@@ -106,7 +105,7 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
     }
     Box(
         modifier = Modifier
-            .background(MaterialTheme.colorScheme.background)
+            .background(Color.White)
             .fillMaxSize()
     ) {
         Box(
@@ -290,7 +289,7 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                         contentDescription = null,
-                        tint = if (isFavorite) Color.Red else MaterialTheme.colorScheme.onSurface
+                        tint = if (isFavorite) Color.Red else MaterialTheme.colors.background
                     )
                 }
                 Spacer(modifier = Modifier.width(4.dp))
@@ -353,7 +352,7 @@ fun ProductColor(
     isSelected: Boolean,
     onClick: () -> Unit
 ) {
-    val borderColor = if (isSelected) MaterialTheme.colorScheme.primary else Color.Transparent
+    val borderColor = if (isSelected) MaterialTheme.colors.primary else Color.Transparent
     Box(
         modifier = Modifier
             .border(width = 0.5.dp, shape = CircleShape, color = borderColor)
