@@ -8,12 +8,17 @@ import androidx.compose.material.MaterialTheme
 import androidx.compose.material.Surface
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import com.example.appshoestore.Navigation.AppNavigationHost
+import com.example.appshoestore.Screen.OnBoardingScreen
+import com.example.appshoestore.Util.OnBoard
 import com.example.appshoestore.ui.theme.AppShoeStoreTheme
+import kotlinx.coroutines.launch
 
 class MainActivity : ComponentActivity() {
+    private val onBoardingUtils by lazy { OnBoard(this) }
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
@@ -23,13 +28,29 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = Color.LightGray
                 ) {
-                    //ProductScreen()
+                    if(onBoardingUtils.isOnBoardingCompleted()){
+                        AppNavigationHost()
+                    }else{
+                        showOnBoardingScreen()
+                    }
+                }
+            }
+        }
+    }
+    @Composable
+    fun showOnBoardingScreen(){
+        val scope = rememberCoroutineScope()
+        OnBoardingScreen {
+            onBoardingUtils.setOnBoardingCompleted()
+            scope.launch {
+                setContent {
                     AppNavigationHost()
                 }
             }
         }
     }
 }
+
 
 @Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {

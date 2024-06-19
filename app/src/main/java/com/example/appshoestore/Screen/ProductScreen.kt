@@ -10,6 +10,7 @@ import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
 import androidx.compose.foundation.Image
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
@@ -367,7 +368,7 @@ fun AnimatedFab(
     modifier: Modifier,
     icon: ImageVector? = null,
     opacity: Float = 1f,
-    backgroundColor: Color = MaterialTheme.colors.secondary,
+    backgroundColor: Color = Color(0xFFEB87CE),
     onClick: () -> Unit = {}
 ) {
     FloatingActionButton(
