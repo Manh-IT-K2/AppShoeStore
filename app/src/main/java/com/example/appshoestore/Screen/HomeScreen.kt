@@ -69,9 +69,11 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.appshoestore.Component.ProductItem
 import com.example.appshoestore.Model.OnBoarding
 import com.example.appshoestore.Model.OnBoardingAd
@@ -148,6 +150,17 @@ fun HomeScreen(navController: NavController) {
                         }
                     )
                 //}
+            Text(
+                text = "Recommend",
+                modifier = Modifier.padding(start = 22.dp, bottom = 6.dp),
+                color = Color.Black,
+                fontSize = 22.sp,
+                style = TextStyle(
+                    fontWeight = FontWeight.Bold,
+                    fontFamily = f1,
+                    platformStyle = PlatformTextStyle(includeFontPadding = false)
+                )
+            )
                 //item {
                     LazyVerticalGrid(
                         columns = GridCells.Fixed(2),
@@ -165,9 +178,7 @@ fun HomeScreen(navController: NavController) {
             //}
 
         }
-
-
-        MainScreen()
+        Bottombar()
     }
 
 
@@ -275,7 +286,7 @@ private fun getRenderEffect(): android.graphics.RenderEffect {
 }
 
 @Composable
-fun MainScreen() {
+fun Bottombar() {
     val isMenuExtended = remember { mutableStateOf(false) }
 
     val fabAnimationProgress by animateFloatAsState(
@@ -300,21 +311,22 @@ fun MainScreen() {
         null
     }
 
-    MainScreen(
+    CompleteAnimate(
         renderEffect = renderEffect,
         fabAnimationProgress = fabAnimationProgress,
-        clickAnimationProgress = clickAnimationProgress
+        clickAnimationProgress = clickAnimationProgress,
     ) {
         isMenuExtended.value = isMenuExtended.value.not()
     }
 }
 
+
 @Composable
-fun MainScreen(
+fun CompleteAnimate(
     renderEffect: androidx.compose.ui.graphics.RenderEffect?,
     fabAnimationProgress: Float = 0f,
     clickAnimationProgress: Float = 0f,
-    toggleAnimation: () -> Unit = { }
+    toggleAnimation: () -> Unit = { },
 ) {
     Box(
         Modifier
@@ -332,7 +344,7 @@ fun MainScreen(
         FabGroup(
             renderEffect = null,
             animationProgress = fabAnimationProgress,
-            toggleAnimation = toggleAnimation
+            toggleAnimation = toggleAnimation,
         )
         Circle(
             color = Color.White,
@@ -383,8 +395,13 @@ fun CustomBottomNavigation() {
 fun FabGroup(
     animationProgress: Float = 0f,
     renderEffect: androidx.compose.ui.graphics.RenderEffect? = null,
-    toggleAnimation: () -> Unit = { }
+    toggleAnimation: () -> Unit = { },
+    onClickSetting: () -> Unit = { },
+    onClickNotification: () -> Unit = { },
+    onClickShoppingCart: () -> Unit = { },
+
 ) {
+    val navController = rememberNavController()
     Box(
         Modifier
             .fillMaxSize()
@@ -402,7 +419,8 @@ fun FabGroup(
                         end = 210.dp
                     ) * FastOutSlowInEasing.transform(0f, 0.8f, animationProgress)
                 ),
-            opacity = LinearEasing.transform(0.2f, 0.7f, animationProgress)
+            opacity = LinearEasing.transform(0.2f, 0.7f, animationProgress),
+            onClick = onClickNotification
         )
 
         AnimatedFab(
@@ -412,7 +430,8 @@ fun FabGroup(
                     bottom = 88.dp,
                 ) * FastOutSlowInEasing.transform(0.1f, 0.9f, animationProgress)
             ),
-            opacity = LinearEasing.transform(0.3f, 0.8f, animationProgress)
+            opacity = LinearEasing.transform(0.3f, 0.8f, animationProgress),
+            onClick = onClickShoppingCart
         )
 
         AnimatedFab(
@@ -423,7 +442,8 @@ fun FabGroup(
                     start = 210.dp
                 ) * FastOutSlowInEasing.transform(0.2f, 1.0f, animationProgress)
             ),
-            opacity = LinearEasing.transform(0.4f, 0.9f, animationProgress)
+            opacity = LinearEasing.transform(0.4f, 0.9f, animationProgress),
+            onClick = onClickSetting
         )
 
         AnimatedFab(

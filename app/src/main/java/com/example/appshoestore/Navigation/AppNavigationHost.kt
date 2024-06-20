@@ -10,11 +10,12 @@ import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.appshoestore.Screen.HomeScreen
 import com.example.appshoestore.Screen.ProductDetailScreen
+import com.example.appshoestore.Screen.SettingScreen
 
 @Composable
 fun AppNavigationHost(
     modifier: Modifier = Modifier,
-    startDestination: String = NavigationItem.PRODUCT
+    startDestination: String = NavigationItem.HOME
 ) {
     val navController = rememberNavController()
     NavHost(
@@ -22,7 +23,7 @@ fun AppNavigationHost(
         navController = navController,
         startDestination = startDestination
     ) {
-        composable(NavigationItem.PRODUCT) {
+        composable(NavigationItem.HOME) {
             HomeScreen(navController)
         }
         composable(
@@ -32,6 +33,9 @@ fun AppNavigationHost(
             val id = it.arguments?.getString("id")
             if (id != null)
                 ProductDetailScreen(id, navController)
+        }
+        composable(NavigationItem.SETTING){
+            SettingScreen(navController)
         }
     }
 }
