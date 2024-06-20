@@ -29,3 +29,28 @@ val f5 = FontFamily(
     Font(R.font.playwrite_frmoderne_variablefont_wght, FontWeight.Normal),
     Font(R.font.playwrite_frmoderne_variablefont_wght, FontWeight.Bold)
 )
+
+val f6 = FontFamily(
+    Font(R.font.estonia_regular, FontWeight.Normal),
+    Font(R.font.estonia_regular, FontWeight.Bold)
+)
+
+val f7 = FontFamily(
+    Font(R.font.ingriddarling_regular, FontWeight.Normal),
+    Font(R.font.ingriddarling_regular, FontWeight.Bold)
+)
+
+val f8 = FontFamily(
+    Font(R.font.rubikburned_regular, FontWeight.Normal),
+    Font(R.font.rubikburned_regular, FontWeight.Bold)
+)
+
+val f9 = FontFamily(
+    Font(R.font.rubikmarkerhatch_regular, FontWeight.Normal),
+    Font(R.font.rubikmarkerhatch_regular, FontWeight.Bold)
+)
+
+val f10 = FontFamily(
+    Font(R.font.rubikpuddles_regular, FontWeight.Normal),
+    Font(R.font.rubikpuddles_regular, FontWeight.Bold)
+)

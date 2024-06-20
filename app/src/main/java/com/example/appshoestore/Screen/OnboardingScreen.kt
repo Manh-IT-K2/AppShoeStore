@@ -9,6 +9,8 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
@@ -31,6 +33,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.painterResource
+import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
@@ -38,10 +41,15 @@ import androidx.compose.ui.unit.sp
 import com.example.appshoestore.Model.OnBoarding
 import com.example.appshoestore.ui.theme.Purple200
 import com.example.appshoestore.ui.theme.f1
+import com.example.appshoestore.ui.theme.f10
 import com.example.appshoestore.ui.theme.f2
 import com.example.appshoestore.ui.theme.f3
 import com.example.appshoestore.ui.theme.f4
 import com.example.appshoestore.ui.theme.f5
+import com.example.appshoestore.ui.theme.f6
+import com.example.appshoestore.ui.theme.f7
+import com.example.appshoestore.ui.theme.f8
+import com.example.appshoestore.ui.theme.f9
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -62,58 +70,70 @@ fun OnBoardingScreen(onFinished: () -> Unit) {
         }
     }
     val scope = rememberCoroutineScope()
-    Scaffold(
-        bottomBar = {
-            Row(
+    Scaffold(modifier = Modifier.background(Color.White), bottomBar = {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White),
+            horizontalArrangement = Arrangement.SpaceBetween,
+            verticalAlignment = Alignment.CenterVertically
+        ) {
+            Box(
                 modifier = Modifier
-                    .fillMaxWidth()
-                    .padding(10.dp, 5.dp),
-                horizontalArrangement = Arrangement.SpaceBetween,
-                verticalAlignment = Alignment.CenterVertically
+                    .weight(1f)
+                    .padding(start = 22.dp, bottom = 20.dp)
+                    .background(Color.Transparent), contentAlignment = Alignment.CenterStart
             ) {
-                Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterStart) {
-                    if (buttonState.value[0].isNotEmpty()) {
-                        ButtonUI(
-                            text = buttonState.value[0],
-                            backgroundColor = Color.Transparent,
-                            textColor = Color.Gray
-                        ) {
-                            scope.launch{
-                                if (pagerState.currentPage > 0){
-                                    pagerState.animateScrollToPage(pagerState.currentPage - 1)
-                                }
-                            }
-                        }
-                    }
-                }
-                Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
-                    IndicatorUI(pageSize = page.size, currentPage = pagerState.currentPage)
-                }
-                Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.CenterEnd) {
+                if (buttonState.value[0].isNotEmpty()) {
                     ButtonUI(
-                        text = buttonState.value[1],
-                        textColor = Color.White,
-                        backgroundColor = Purple200
+                        text = buttonState.value[0],
+                        backgroundColor = Color.Transparent,
+                        textColor = Color.Gray
                     ) {
-                        scope.launch{
-                            if (pagerState.currentPage < page.size - 1){
-                                pagerState.animateScrollToPage(pagerState.currentPage + 1)
-                            }else{
-                                onFinished()
+                        scope.launch {
+                            if (pagerState.currentPage > 0) {
+                                pagerState.animateScrollToPage(pagerState.currentPage - 1)
                             }
                         }
                     }
                 }
             }
-        },
-        content = {
-            Column(Modifier.padding(it)) {
-                HorizontalPager(state = pagerState) { index ->
-                    OnBoardingUI(onBoarding = page[index])
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(start = 22.dp, bottom = 20.dp),
+                contentAlignment = Alignment.Center
+            ) {
+                IndicatorUI(pageSize = page.size, currentPage = pagerState.currentPage)
+            }
+            Box(
+                modifier = Modifier
+                    .weight(1f)
+                    .padding(end = 22.dp, bottom = 20.dp),
+                contentAlignment = Alignment.CenterEnd
+            ) {
+                ButtonUI(
+                    text = buttonState.value[1],
+                    textColor = Color.White,
+                    backgroundColor = Purple200
+                ) {
+                    scope.launch {
+                        if (pagerState.currentPage < page.size - 1) {
+                            pagerState.animateScrollToPage(pagerState.currentPage + 1)
+                        } else {
+                            onFinished()
+                        }
+                    }
                 }
             }
         }
-    )
+    }, content = {
+        Column(Modifier.padding(it)) {
+            HorizontalPager(state = pagerState) { index ->
+                OnBoardingUI(onBoarding = page[index])
+            }
+        }
+    })
 
 }
 
@@ -130,25 +150,37 @@ fun OnBoardingUI(onBoarding: OnBoarding) {
     Column(
         modifier = Modifier
             .fillMaxWidth()
+            .fillMaxSize()
             .background(Color.White)
     ) {
         Spacer(modifier = Modifier.size(50.dp))
         Image(
-            painter = painterResource(id = onBoarding.image), contentDescription = null,
+            painter = painterResource(id = onBoarding.image),
+            contentDescription = null,
             modifier = Modifier
+                .height(400.dp)
                 .fillMaxWidth()
                 .padding(50.dp, 0.dp),
             alignment = Alignment.Center
         )
         Spacer(modifier = Modifier.size(50.dp))
-        Text(
-            text = onBoarding.title,
-            modifier = Modifier.fillMaxWidth(),
-            fontSize = 22.sp,
-            textAlign = TextAlign.Center,
-            fontFamily = f1,
-            color = Color.Black
-        )
+        Row(modifier = Modifier.fillMaxWidth(),
+            horizontalArrangement = Arrangement.Center
+        ) {
+            Text(
+                text = onBoarding.title,
+                fontSize = 25.sp,
+                fontFamily = f1,
+                color = Color.Black
+            )
+            Text(
+                text = onBoarding.titleMain,
+                fontSize = 25.sp,
+                fontFamily = f1,
+                color = Color.Red,
+
+                )
+        }
         Spacer(
             modifier = Modifier
                 .fillMaxWidth()
@@ -161,7 +193,7 @@ fun OnBoardingUI(onBoarding: OnBoarding) {
                 .padding(15.dp, 0.dp),
             textAlign = TextAlign.Center,
             fontSize = 15.sp,
-            fontFamily = f3,
+            fontFamily = FontFamily.Serif,
             color = Color.DarkGray
         )
 
@@ -237,11 +269,13 @@ fun ButtonUI(
     onClick: () -> Unit
 ) {
     Button(
-        onClick = onClick, colors = ButtonDefaults.buttonColors(
-            contentColor = textColor,
-            backgroundColor = backgroundColor
+        onClick = onClick,
+        colors = ButtonDefaults.buttonColors(
+            contentColor = textColor, backgroundColor = backgroundColor
         ),
-        shape = RoundedCornerShape(10.dp)
+        elevation = ButtonDefaults.elevation(0.dp),
+        shape = RoundedCornerShape(10.dp),
+        border = null
     ) {
         Text(text = text, fontSize = fontSize.sp, fontFamily = f1)
     }
@@ -250,18 +284,13 @@ fun ButtonUI(
 @Preview
 @Composable
 fun NextButton() {
-    ButtonUI(text = "Next") {
-    }
+    ButtonUI(text = "Next") {}
 }
 
 @Preview
 @Composable
 fun BackButton() {
     ButtonUI(
-        text = "Back",
-        backgroundColor = Color.Transparent,
-        textColor = Color.Gray,
-        fontSize = 13
-    ) {
-    }
+        text = "Back", backgroundColor = Color.Transparent, textColor = Color.Gray, fontSize = 13
+    ) {}
 }
