@@ -70,11 +70,11 @@ fun OnBoardingScreen(onFinished: () -> Unit) {
         }
     }
     val scope = rememberCoroutineScope()
-    Scaffold(modifier = Modifier.background(Color.White), bottomBar = {
+    Scaffold(modifier = Modifier.background(Color.LightGray), bottomBar = {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.White),
+                .background(Color.LightGray),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {
@@ -223,7 +223,7 @@ fun OnBoardingThirdPage() {
 fun IndicatorUI(
     pageSize: Int,
     currentPage: Int,
-    selectedColor: Color = Color.LightGray,
+    selectedColor: Color = Color.White,
     unSelectedColor: Color = Color.DarkGray
 ) {
     Row(horizontalArrangement = Arrangement.SpaceBetween) {

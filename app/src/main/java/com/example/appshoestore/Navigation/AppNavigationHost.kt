@@ -8,8 +8,8 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.appshoestore.Screen.HomeScreen
 import com.example.appshoestore.Screen.ProductDetailScreen
-import com.example.appshoestore.Screen.ProductScreen
 
 @Composable
 fun AppNavigationHost(
@@ -23,7 +23,7 @@ fun AppNavigationHost(
         startDestination = startDestination
     ) {
         composable(NavigationItem.PRODUCT) {
-            ProductScreen(navController)
+            HomeScreen(navController)
         }
         composable(
             "${NavigationItem.PRODUCT_DETAIL}/{id}",

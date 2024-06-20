@@ -9,6 +9,7 @@ import androidx.compose.animation.core.FastOutSlowInEasing
 import androidx.compose.animation.core.LinearEasing
 import androidx.compose.animation.core.animateFloatAsState
 import androidx.compose.animation.core.tween
+import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -17,31 +18,36 @@ import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
 import androidx.compose.foundation.lazy.grid.items
+import androidx.compose.foundation.pager.HorizontalPager
+import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.FloatingActionButton
 import androidx.compose.material.FloatingActionButtonDefaults
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.CalendarToday
 import androidx.compose.material.icons.filled.Group
 import androidx.compose.material.icons.filled.Notifications
-import androidx.compose.material.icons.filled.PhotoCamera
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -51,6 +57,7 @@ import androidx.compose.ui.draw.clip
 import androidx.compose.ui.draw.paint
 import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.scale
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asComposeRenderEffect
 import androidx.compose.ui.graphics.graphicsLayer
@@ -59,60 +66,134 @@ import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.PlatformTextStyle
 import androidx.compose.ui.text.TextStyle
-import androidx.compose.ui.text.font.Font
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
 import com.example.appshoestore.Component.ProductItem
-import com.example.appshoestore.MainActivity
+import com.example.appshoestore.Model.OnBoarding
+import com.example.appshoestore.Model.OnBoardingAd
 import com.example.appshoestore.Model.Products
 import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 import com.example.appshoestore.Util.times
 import com.example.appshoestore.Util.transform
-import com.example.appshoestore.ui.theme.AppShoeStoreTheme
 import com.example.appshoestore.ui.theme.DEFAULT_PADDING
 import com.example.appshoestore.ui.theme.f1
-import com.example.appshoestore.ui.theme.f2
-import com.example.appshoestore.ui.theme.f3
-import com.example.appshoestore.ui.theme.f4
-import com.example.appshoestore.ui.theme.f5
+import kotlinx.coroutines.delay
+import kotlinx.coroutines.yield
 import kotlin.math.PI
 import kotlin.math.sin
 
+@OptIn(ExperimentalFoundationApi::class)
 @Composable
-fun ProductScreen(navController: NavController) {
+fun HomeScreen(navController: NavController) {
     var products = remember {
         getProductList()
     }
-    Box(modifier = Modifier
-        .fillMaxSize()
-        .padding(top = 6.dp, bottom = 6.dp)
-    ){
+    val page = listOf(OnBoardingAd.AdOne, OnBoardingAd.AdTwo, OnBoardingAd.AdThree)
+    val pagerState = rememberPagerState(initialPage = 0) {
+        page.size
+    }
+
+    // Auto-scroll logic
+    LaunchedEffect(pagerState) {
+        while (true) {
+            yield()
+            delay(3000) // Delay for 3 seconds
+            val currentPage = pagerState.currentPage
+            val nextPage = if (currentPage < page.size - 1) currentPage + 1 else 0
+            pagerState.animateScrollToPage(nextPage)
+        }
+    }
+
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .padding(top = 6.dp, bottom = 6.dp)
+    ) {
         Column {
             headerScreen()
-            LazyVerticalGrid(
-                columns = GridCells.Fixed(2),
-                modifier = Modifier
-                    .padding(8.dp)
-                    .padding(bottom = 70.dp)
-            ) {
-                items(products) {
-                    ProductItem(product = it) {
-                        navController.navigate("${NavigationItem.PRODUCT_DETAIL}/${it.id}")
+            //LazyColumn {
+                //item {
+                    Scaffold(modifier = Modifier
+                        .fillMaxWidth()
+                        .height(200.dp)
+                        .padding(start = 22.dp, end = 22.dp, top = 10.dp)
+                        .clip(RoundedCornerShape(10.dp)),
+                        content = {
+                            Column(Modifier.padding(it)) {
+                                HorizontalPager(state = pagerState) { index ->
+                                    OnBoardingAdUI(onBoarding = page[index])
+                                }
+                            }
+                        },
+                        bottomBar = {
+                            Box(
+                                modifier = Modifier
+                                    .weight(1f)
+                                    .height(30.dp)
+                                    .fillMaxWidth()
+                                    .background(Color.LightGray),
+                                contentAlignment = Alignment.Center,
+
+                                ) {
+                                IndicatorUI(
+                                    pageSize = page.size,
+                                    currentPage = pagerState.currentPage
+                                )
+                            }
+                        }
+                    )
+                //}
+                //item {
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier
+                            .padding(8.dp)
+                            .padding(bottom = 70.dp)
+                    ) {
+                        items(products) {
+                            ProductItem(product = it) {
+                                navController.navigate("${NavigationItem.PRODUCT_DETAIL}/${it.id}")
+                            }
+                        }
                     }
-                }
-            }
+                //}
+            //}
+
         }
+
+
         MainScreen()
     }
 
 
 }
 
+@Composable
+fun OnBoardingAdUI(onBoarding: OnBoardingAd) {
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .shadow(20.dp)
+            .background(Color.LightGray)
+            .clip(RoundedCornerShape(10.dp))
+    ) {
+        Image(
+            painter = painterResource(id = onBoarding.image),
+            contentDescription = null,
+            modifier = Modifier
+                .height(200.dp)
+                .fillMaxWidth()
+                .clip(RoundedCornerShape(10.dp)),
+            contentScale = ContentScale.Crop,
+            alignment = Alignment.Center
+        )
+    }
+}
 
 @Composable
 fun headerScreen() {
