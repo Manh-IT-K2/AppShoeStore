@@ -14,13 +14,11 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
 
-const val DEFAULT_PADDING = 44
-
 private val DarkColorPalette = darkColors(
     primary = Purple200,
     primaryVariant = Purple700,
     secondary = Pink,
-    background = DarkPurple
+    background = Wt
 )
 @Composable
 fun AppShoeStoreTheme(

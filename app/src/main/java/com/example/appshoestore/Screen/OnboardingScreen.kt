@@ -223,7 +223,7 @@ fun OnBoardingThirdPage() {
 fun IndicatorUI(
     pageSize: Int,
     currentPage: Int,
-    selectedColor: Color = Color.White,
+    selectedColor: Color = Color.LightGray,
     unSelectedColor: Color = Color.DarkGray
 ) {
     Row(horizontalArrangement = Arrangement.SpaceBetween) {

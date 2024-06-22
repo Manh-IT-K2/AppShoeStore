@@ -1,3 +1,7 @@
 <resources>
     <string name="app_name">S-Shoes</string>
+    <string name="Home"></string>
+    <string name="Account"></string>
+    <string name="Notification"></string>
+    <string name="Cart"></string>
 </resources>

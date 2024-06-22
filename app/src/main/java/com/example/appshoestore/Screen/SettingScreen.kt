@@ -52,7 +52,7 @@ import com.example.appshoestore.ui.theme.f8
 import com.example.appshoestore.ui.theme.f9
 
 @Composable
-fun SettingScreen(navController: NavController) {
+fun SettingScreen() {
     Box(
         Modifier
             .fillMaxSize()
@@ -62,7 +62,7 @@ fun SettingScreen(navController: NavController) {
             Row(Modifier.fillMaxWidth()) {
                 Box(Modifier.weight(1f)) {
                     IconButton(
-                        onClick = { navController.popBackStack()},
+                        onClick = {},
                         modifier = Modifier
                             .padding(start = 16.dp, top = 16.dp)
                             .shadow(

@@ -135,7 +135,7 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
                 .background(color = Color.White, shape = RoundedCornerShape(22.dp))
                 .size(36.dp)
         ) {
-            Icon(imageVector = Icons.Rounded.KeyboardArrowLeft, contentDescription = null)
+            Icon(imageVector = Icons.Rounded.KeyboardArrowLeft, contentDescription = null, tint = Color.Black)
         }
         Column()
         {
@@ -296,7 +296,7 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
                     Icon(
                         imageVector = if (isFavorite) Icons.Rounded.Favorite else Icons.Rounded.FavoriteBorder,
                         contentDescription = null,
-                        tint = if (isFavorite) Color.Red else MaterialTheme.colors.background
+                        tint = if (isFavorite) Color.Red else Color.Black
                     )
                 }
                 Spacer(modifier = Modifier.width(4.dp))

@@ -70,7 +70,12 @@ dependencies {
 
     // splash Screen
     implementation("androidx.core:core-splashscreen:1.0.0")
+
+    //bottom navigation bar
+    implementation 'com.github.PratikFagadiya:AnimatedSmoothBottomNavigation-JetpackCompose:1.1.2'
+
 }
+
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
     kotlinOptions {
         languageVersion = "1.9"

@@ -1,6 +1,7 @@
 package com.example.appshoestore.Navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
 import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
@@ -9,23 +10,24 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.appshoestore.Screen.HomeScreen
+import com.example.appshoestore.Screen.NotificationScreen
 import com.example.appshoestore.Screen.ProductDetailScreen
+import com.example.appshoestore.Screen.ProfileScreen
+import com.example.appshoestore.Screen.SearchScreen
 import com.example.appshoestore.Screen.SettingScreen
+import com.example.appshoestore.Screen.ShoppingCartScreen
 
 @Composable
-fun AppNavigationHost(
-    modifier: Modifier = Modifier,
-    startDestination: String = NavigationItem.HOME
-) {
-    val navController = rememberNavController()
-    NavHost(
-        modifier = modifier,
-        navController = navController,
-        startDestination = startDestination
-    ) {
+fun AppNavigationHost(navController: NavHostController, currentIndex: MutableIntState) {
+
+    NavHost(navController = navController, startDestination = NavigationItem.HOME) {
+
+        // Home
         composable(NavigationItem.HOME) {
             HomeScreen(navController)
         }
+
+        //Product detail
         composable(
             "${NavigationItem.PRODUCT_DETAIL}/{id}",
             arguments = listOf(navArgument("id") { type = NavType.StringType })
@@ -34,9 +36,31 @@ fun AppNavigationHost(
             if (id != null)
                 ProductDetailScreen(id, navController)
         }
-        composable(NavigationItem.SETTING){
-            SettingScreen(navController)
+
+        // notification
+        composable(NavigationItem.NOTIFICATION) {
+            NotificationScreen()
         }
+
+        // setting
+        composable(NavigationItem.SETTING) {
+            SettingScreen()
+        }
+
+        // Shopping cart
+        composable(NavigationItem.SHOPPING_CART) {
+            ShoppingCartScreen()
+        }
+
+        // search
+        composable(NavigationItem.SEARCH) {
+            SearchScreen()
+        }
+
+        // profile
+        composable(NavigationItem.PROFILE) {
+            ProfileScreen()
+        }
+
     }
 }
-

@@ -75,7 +75,7 @@ fun ProductItem(
             onClick = {
                 isFavorite = !isFavorite
             },
-            modifier = Modifier.align(Alignment.TopEnd)
+            modifier = Modifier.align(Alignment.TopEnd),
         ) {
             Icon(
                 imageVector =
@@ -83,7 +83,8 @@ fun ProductItem(
                     Icons.Rounded.Favorite
                 else
                     Icons.Rounded.FavoriteBorder,
-                contentDescription = null
+                contentDescription = null,
+                tint = Color.Black
             )
         }
         Text(
@@ -108,10 +109,12 @@ fun ProductItem(
                 text = "Rs. ${product.discount}",
                 fontWeight = FontWeight.Bold,
                 fontSize = 18.sp,
-                modifier = Modifier.padding(end = 8.dp)
+                modifier = Modifier.padding(end = 8.dp),
+                color = Color.Black
             )
             Text(
                 text = "Rs. ${product.price}",
+                color = Color.Black,
                 fontSize = 12.sp,
                 modifier = Modifier
                     .padding(end = 8.dp, bottom = 8.dp)

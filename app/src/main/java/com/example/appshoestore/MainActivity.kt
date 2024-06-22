@@ -1,18 +1,53 @@
 package com.example.appshoestore
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.MaterialTheme
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material.Scaffold
 import androidx.compose.material.Surface
-import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.AddCard
+import androidx.compose.material.icons.filled.Home
+import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Person
+import androidx.compose.material.icons.filled.Search
+import androidx.compose.material.icons.filled.ShoppingBasket
+import androidx.compose.material.icons.filled.ShoppingCart
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.mutableIntStateOf
 import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.unit.dp
+import androidx.compose.ui.unit.sp
+import androidx.navigation.NavHostController
+import androidx.navigation.NavType
+import androidx.navigation.compose.NavHost
+import androidx.navigation.compose.composable
+import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.PratikFagadiya.smoothanimationbottombar.model.SmoothAnimationBottomBarScreens
+import com.PratikFagadiya.smoothanimationbottombar.properties.BottomBarProperties
+import com.PratikFagadiya.smoothanimationbottombar.ui.SmoothAnimationBottomBar
+import com.PratikFagadiya.smoothanimationbottombar.ui.theme.BlueTint
 import com.example.appshoestore.Navigation.AppNavigationHost
+import com.example.appshoestore.Navigation.NavigationItem
+import com.example.appshoestore.Screen.HomeScreen
+import com.example.appshoestore.Screen.NotificationScreen
 import com.example.appshoestore.Screen.OnBoardingScreen
+import com.example.appshoestore.Screen.ProductDetailScreen
+import com.example.appshoestore.Screen.ProfileScreen
+import com.example.appshoestore.Screen.SearchScreen
+import com.example.appshoestore.Screen.SettingScreen
+import com.example.appshoestore.Screen.ShoppingCartScreen
 import com.example.appshoestore.Util.OnBoard
 import com.example.appshoestore.ui.theme.AppShoeStoreTheme
 import kotlinx.coroutines.launch
@@ -26,25 +61,26 @@ class MainActivity : ComponentActivity() {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
-                    color = Color.LightGray
+                    color = Color.White,
                 ) {
-                    if(onBoardingUtils.isOnBoardingCompleted()){
-                        AppNavigationHost()
-                    }else{
+                    if (onBoardingUtils.isOnBoardingCompleted()) {
+                        BottomBar()
+                    } else {
                         showOnBoardingScreen()
                     }
                 }
             }
         }
     }
+
     @Composable
-    fun showOnBoardingScreen(){
+    fun showOnBoardingScreen() {
         val scope = rememberCoroutineScope()
         OnBoardingScreen {
             onBoardingUtils.setOnBoardingCompleted()
             scope.launch {
                 setContent {
-                    AppNavigationHost()
+                   BottomBar()
                 }
             }
         }
@@ -53,16 +89,60 @@ class MainActivity : ComponentActivity() {
 
 
 @Composable
-fun Greeting(name: String, modifier: Modifier = Modifier) {
-    Text(
-        text = "Hello $name!",
-        modifier = modifier
+fun BottomBar() {
+    val bottomNavigationItems = listOf(
+        SmoothAnimationBottomBarScreens(
+            NavigationItem.HOME,
+            stringResource(id = R.string.Home),
+            Icons.Default.Home
+        ),
+        SmoothAnimationBottomBarScreens(
+            NavigationItem.NOTIFICATION,
+            stringResource(id = R.string.Notification),
+            Icons.Default.Notifications
+        ),
+        SmoothAnimationBottomBarScreens(
+            NavigationItem.SHOPPING_CART,
+            stringResource(id = R.string.Cart),
+            Icons.Default.ShoppingCart
+        ),
+        SmoothAnimationBottomBarScreens(
+            NavigationItem.SEARCH,
+            stringResource(id = R.string.Cart),
+            Icons.Default.Search
+        ),
+        SmoothAnimationBottomBarScreens(
+            NavigationItem.PROFILE,
+            stringResource(id = R.string.Cart),
+            Icons.Default.Person
+        ),
     )
-}
 
-@Composable
-fun GreetingPreview() {
-    AppShoeStoreTheme {
-        Greeting("Android")
+    val navController = rememberNavController()
+    val currentIndex = rememberSaveable {
+        mutableIntStateOf(0)
     }
+
+    Scaffold(bottomBar = {
+        SmoothAnimationBottomBar(navController,
+            bottomNavigationItems,
+            initialIndex = currentIndex,
+            bottomBarProperties = BottomBarProperties(
+                backgroundColor = Color.White,
+                indicatorColor = Color.Magenta.copy(alpha = 0.2F),
+                iconTintColor = BlueTint,
+                iconTintActiveColor = Color.Magenta,
+                textActiveColor = Color.Black,
+                cornerRadius = 18.dp,
+                fontWeight = FontWeight.Medium,
+                fontSize = 16.sp
+            ),
+            onSelectItem = {
+                Log.i("SELECTED_ITEM", "onCreate: Selected Item ${it.name}")
+            })
+    }) { innerPadding ->
+        Modifier.padding(innerPadding)
+        AppNavigationHost(navController, currentIndex)
+    }
+
 }
