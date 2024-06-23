@@ -52,7 +52,7 @@ import com.example.appshoestore.ui.theme.f8
 import com.example.appshoestore.ui.theme.f9
 
 @Composable
-fun SettingScreen() {
+fun SettingScreen(navController: NavController) {
     Box(
         Modifier
             .fillMaxSize()
@@ -62,7 +62,7 @@ fun SettingScreen() {
             Row(Modifier.fillMaxWidth()) {
                 Box(Modifier.weight(1f)) {
                     IconButton(
-                        onClick = {},
+                        onClick = {navController.popBackStack()},
                         modifier = Modifier
                             .padding(start = 16.dp, top = 16.dp)
                             .shadow(
@@ -75,13 +75,14 @@ fun SettingScreen() {
                     ) {
                         Icon(
                             imageVector = Icons.Rounded.KeyboardArrowLeft,
-                            contentDescription = null
+                            contentDescription = null,
+                            tint = Color.Black
                         )
                     }
                 }
                 Box(Modifier.weight(1f), contentAlignment = Alignment.Center) {
                     Text(
-                        text = "Setting",
+                        text = "Settings",
                         color = Color.Black,
                         style = TextStyle(
                             fontFamily = f1,
@@ -111,18 +112,18 @@ fun ItemSetting(
 ) {
     Box(
         modifier = Modifier
-            .padding(22.dp, 10.dp)
+            .padding(22.dp, 16.dp)
             .fillMaxWidth()
             .background(Color.Transparent)
     ) {
         Column {
             Row(horizontalArrangement = Arrangement.SpaceBetween, modifier = Modifier.padding(bottom = 10.dp)) {
-                Icon(imageVector = icon, contentDescription = null, Modifier.size(30.dp))
+                Icon(imageVector = icon, contentDescription = null, Modifier.size(30.dp), tint = Color.Black)
                 Column(Modifier.padding(start = 16.dp)) {
                     Text(
                         text = title,
                         color = Color.Black,
-                        fontSize = 14.sp,
+                        fontSize = 16.sp,
                         style = TextStyle(
                             fontWeight = FontWeight.Normal,
                             fontFamily = f1
@@ -131,20 +132,20 @@ fun ItemSetting(
                     Text(
                         text = description,
                         color = Color.Gray,
-                        fontSize = 12.sp,
+                        fontSize = 16.sp,
                         style = TextStyle(
                             fontWeight = FontWeight.Normal,
                         )
                     )
                 }
                 Spacer(modifier = Modifier.weight(1f))
-                Icon(imageVector = iconDetail, contentDescription = null)
+                Icon(imageVector = iconDetail, contentDescription = null, tint = Color.Black)
             }
             Box(
                 modifier = Modifier
                     .width(400.dp)
                     .height(1.dp)
-                    .background(color = Color.Gray)
+                    .background(Color.LightGray.copy(alpha = 0.5f))
             )
         }
     }

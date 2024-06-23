@@ -44,7 +44,7 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
 
         // setting
         composable(NavigationItem.SETTING) {
-            SettingScreen()
+            SettingScreen(navController)
         }
 
         // Shopping cart
@@ -59,7 +59,7 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
 
         // profile
         composable(NavigationItem.PROFILE) {
-            ProfileScreen()
+            ProfileScreen(navController)
         }
 
     }

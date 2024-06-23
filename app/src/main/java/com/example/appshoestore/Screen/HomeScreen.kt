@@ -239,18 +239,18 @@ fun headerScreen() {
 
             Box(
                 modifier = Modifier
-                    .size(60.dp) // Kích thước của hình ảnh
-                    .clip(CircleShape) // Cắt hình ảnh theo hình tròn
-                    .border(2.dp, Color.White, CircleShape), // Viền màu trắng và dày 2 dp
+                    .size(60.dp)
+                    .clip(CircleShape)
+                    .border(2.dp, Color.White, CircleShape),
                 contentAlignment = Alignment.Center
             ) {
                 Image(
-                    painter = painterResource(id = R.drawable.user), // Thay thế bằng ID của hình ảnh của bạn
+                    painter = painterResource(id = R.drawable.user),
                     contentDescription = null,
-                    contentScale = ContentScale.Crop, // Đảm bảo hình ảnh được cắt theo khung
+                    contentScale = ContentScale.Crop,
                     modifier = Modifier
-                        .matchParentSize() // Đảm bảo hình ảnh chiếm toàn bộ không gian của Box
-                        .clip(CircleShape) // Đảm bảo hình ảnh cũng được cắt theo hình tròn
+                        .matchParentSize()
+                        .clip(CircleShape)
                 )
             }
         }
