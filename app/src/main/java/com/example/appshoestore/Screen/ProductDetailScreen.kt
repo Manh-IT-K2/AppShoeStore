@@ -37,6 +37,7 @@ import androidx.compose.material.icons.rounded.ShoppingCart
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableFloatStateOf
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
@@ -91,10 +92,10 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
         animationSpec = tween(durationMillis = 600, easing = FastOutLinearInEasing)
     )
     var productScale by remember {
-        mutableStateOf(0.6f)
+        mutableFloatStateOf(0.6f)
     }
     var productRotate by remember {
-        mutableStateOf(-60f)
+        mutableFloatStateOf(-60f)
     }
     var selectedSize by remember {
         mutableStateOf(product.size.toString())
