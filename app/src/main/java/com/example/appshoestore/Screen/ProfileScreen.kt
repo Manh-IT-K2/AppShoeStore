@@ -22,6 +22,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowForwardIos
 import androidx.compose.material.icons.rounded.CameraAlt
+import androidx.compose.material.icons.rounded.Favorite
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.KeyboardArrowLeft
 import androidx.compose.material.icons.rounded.Notifications
@@ -152,7 +153,9 @@ fun ProfileScreen(navController: NavController) {
                     navController.navigate(NavigationItem.SETTING)
                 }
             )
-            ItemProfileUI(icon = Icons.Rounded.Notifications, title = "Notifications", onClick = {})
+            ItemProfileUI(icon = Icons.Rounded.Favorite, title = "Favorites", onClick = {
+                navController.navigate(NavigationItem.FAVORITE)
+            })
             ItemProfileUI(icon = Icons.Rounded.Schedule, title = "Order History", onClick = {})
             Text(
                 text = "Security", color = Color.Gray,

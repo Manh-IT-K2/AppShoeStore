@@ -8,5 +8,6 @@ object NavigationItem {
     const val SHOPPING_CART = "shopping_cart"
     const val NOTIFICATION = "notification"
     const val PROFILE = "profile"
+    const val FAVORITE = "favorite"
 
 }

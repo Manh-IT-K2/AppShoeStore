@@ -9,6 +9,7 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
+import com.example.appshoestore.Screen.FavoriteScreen
 import com.example.appshoestore.Screen.HomeScreen
 import com.example.appshoestore.Screen.NotificationScreen
 import com.example.appshoestore.Screen.ProductDetailScreen
@@ -60,6 +61,11 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
         // profile
         composable(NavigationItem.PROFILE) {
             ProfileScreen(navController)
+        }
+
+        // favorite
+        composable(NavigationItem.FAVORITE){
+            FavoriteScreen(navController)
         }
 
     }

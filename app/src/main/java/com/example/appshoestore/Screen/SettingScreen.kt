@@ -64,7 +64,7 @@ fun SettingScreen(navController: NavController) {
                     IconButton(
                         onClick = {navController.popBackStack()},
                         modifier = Modifier
-                            .padding(start = 16.dp, top = 16.dp)
+                            .padding(start = 22.dp, top = 16.dp)
                             .shadow(
                                 elevation = 24.dp,
                                 spotColor = DefaultShadowColor,

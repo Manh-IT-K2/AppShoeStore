@@ -55,17 +55,19 @@ fun SearchScreen() {
         modifier = Modifier
             .fillMaxSize()
             .background(color = Color.White)
-            .padding(top = 22.dp),
+            .padding(top = 16.dp),
         //contentAlignment = Alignment.Center
     ) {
         Column() {
-            Box(
+            Card(
                 modifier = Modifier
+                    .height(70.dp)
                     .fillMaxWidth()
-                    .height(56.dp)
-                    .padding(horizontal = 16.dp)
-                    .background(Color.Gray.copy(alpha = 0.2f), shape = RoundedCornerShape(10.dp)),
-                contentAlignment = Alignment.CenterStart
+                    .padding(start = 22.dp, end = 22.dp, top = 10.dp)
+                    .clickable { },
+                shape = RoundedCornerShape(15.dp),
+                elevation = 8.dp,
+                backgroundColor = Color.White
             ) {
                 Row(
                     verticalAlignment = Alignment.CenterVertically,
@@ -102,7 +104,7 @@ fun SearchScreen() {
             }
             Row(
                 Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 22.dp)
                     .padding(top = 22.dp, bottom = 16.dp)
             ) {
                 Text(
@@ -128,7 +130,7 @@ fun SearchScreen() {
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(90.dp)
-                    .padding(horizontal = 16.dp),
+                    .padding(horizontal = 22.dp),
                 verticalArrangement = Arrangement.spacedBy(8.dp),
                 horizontalArrangement = Arrangement.spacedBy(8.dp)
             ) {
@@ -138,7 +140,7 @@ fun SearchScreen() {
             }
             Row(
                 Modifier
-                    .padding(horizontal = 16.dp)
+                    .padding(horizontal = 22.dp)
                     .padding(top = 22.dp, bottom = 16.dp)
             ) {
                 Text(
@@ -157,9 +159,24 @@ fun SearchScreen() {
                     )
                 )
             }
-            ItemProductSearch(img = R.drawable.s1, name = "Nike", price = "$1400", rate = "3.9", onClick = {})
-            ItemProductSearch(img = R.drawable.s2, name = "Adidas", price = "$3400", rate = "4.9", onClick = {})
-            ItemProductSearch(img = R.drawable.s3, name = "Ios", price = "$2900", rate = "4.5", onClick = {})
+            ItemProductSearch(
+                img = R.drawable.s1,
+                name = "Nike",
+                price = "$1400",
+                rate = "3.9",
+                onClick = {})
+            ItemProductSearch(
+                img = R.drawable.s2,
+                name = "Adidas",
+                price = "$3400",
+                rate = "4.9",
+                onClick = {})
+            ItemProductSearch(
+                img = R.drawable.s3,
+                name = "Ios",
+                price = "$2900",
+                rate = "4.5",
+                onClick = {})
         }
     }
 }
@@ -218,7 +235,10 @@ fun ItemProductSearch(
         elevation = 8.dp,
         backgroundColor = Color.White
     ) {
-        Row(verticalAlignment = Alignment.CenterVertically, modifier = Modifier.padding(start = 16.dp, end = 16.dp)) {
+        Row(
+            verticalAlignment = Alignment.CenterVertically,
+            modifier = Modifier.padding(start = 22.dp, end = 22.dp)
+        ) {
             Box(
                 modifier = Modifier
                     .background(Color.Gray.copy(alpha = 0.3f), shape = RoundedCornerShape(10.dp))
