@@ -229,7 +229,7 @@ fun ItemProductSearch(
         modifier = Modifier
             .height(100.dp)
             .fillMaxWidth()
-            .padding(start = 16.dp, end = 16.dp, top = 10.dp)
+            .padding(start = 22.dp, end = 22.dp, top = 10.dp)
             .clickable { onClick.invoke() },
         shape = RoundedCornerShape(15.dp),
         elevation = 8.dp,
