@@ -18,8 +18,11 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -50,13 +53,19 @@ import com.example.appshoestore.ui.theme.f1
 @Preview
 @Composable
 fun ShoppingCartScreen() {
+    val scrollState = rememberScrollState()
     Box(
         modifier = Modifier
             .background(Color.White)
-            .padding(top = 16.dp)
+            .padding(top = 16.dp, bottom = 60.dp)
             .fillMaxSize(),
     ) {
-        Column {
+        Column(
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .background(Color.White)
+        ) {
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Text(
                     text = "My Cart",
@@ -72,25 +81,12 @@ fun ShoppingCartScreen() {
             ItemCart(img = R.drawable.s7, nameProduct = "Samsung", price = "$3400", quantity = "2")
             ItemCart(img = R.drawable.s8, nameProduct = "Android", price = "$2500", quantity = "1")
             ItemCart(img = R.drawable.s6, nameProduct = "IOS", price = "$5000", quantity = "5")
-            Row(modifier = Modifier.padding(start = 22.dp, end = 22.dp, top = 16.dp)) {
-                Text(
-                    text = "Item Total",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Black
-                    )
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = "$7000",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Black
-                    )
-                )
-            }
+            ItemTextCart(
+                title = "Item Total",
+                price = "$7000",
+                color = Color.Black,
+                fWeight = FontWeight.Normal
+            )
             Box(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -143,8 +139,9 @@ fun ShoppingCartScreen() {
                     Spacer(modifier = Modifier.weight(1f))
                     Button(
                         onClick = { /*TODO*/ },
-                        modifier = Modifier
-                            .padding(end = 16.dp),
+                        colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFFA500)),
+                        shape = RoundedCornerShape(12.dp),
+                        modifier = Modifier.padding(end = 16.dp)
                     ) {
                         Text(
                             text = "Apply Coupon",
@@ -157,44 +154,18 @@ fun ShoppingCartScreen() {
                     }
                 }
             }
-            Row(modifier = Modifier.padding(start = 22.dp, end = 22.dp, top = 16.dp)) {
-                Text(
-                    text = "Discount",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Black
-                    )
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = "$70",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Black
-                    )
-                )
-            }
-            Row(modifier = Modifier.padding(start = 22.dp, end = 22.dp, top = 16.dp)) {
-                Text(
-                    text = "Delivery Free",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Green.copy(alpha = 0.7f)
-                    )
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = "$0",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Green.copy(alpha = 0.7f)
-                    )
-                )
-            }
+            ItemTextCart(
+                title = "Discount",
+                price = "$70",
+                color = Color.Black,
+                fWeight = FontWeight.Normal
+            )
+            ItemTextCart(
+                title = "Delivery Free",
+                price = "$0",
+                color = Color(0xFF08C26F),
+                fWeight = FontWeight.Normal
+            )
             Box(
                 modifier = Modifier
                     .padding(22.dp, 22.dp)
@@ -203,31 +174,20 @@ fun ShoppingCartScreen() {
                     .background(Color.Gray.copy(alpha = 0.3f))
 
             )
-            Row(modifier = Modifier.padding(start = 22.dp, end = 22.dp, top = 16.dp)) {
-                Text(
-                    text = "Grand Total",
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-                )
-                Spacer(modifier = Modifier.weight(1f))
-                Text(
-                    text = "$7100",
-                    style = TextStyle(
-                        fontSize = 18.sp,
-                        fontWeight = FontWeight.Bold,
-                        color = Color.Black
-                    )
-                )
-            }
+            ItemTextCart(
+                title = "Grand Total",
+                price = "$7100",
+                color = Color.Black,
+                fWeight = FontWeight.Bold
+            )
             Button(
                 onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFFA500)),
+                shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
-                    .padding(22.dp, 22.dp)
+                    .padding(22.dp)
                     .fillMaxWidth()
-                    .height(60.dp),
+                    .height(60.dp)
             ) {
                 Text(
                     text = "Buy",
@@ -238,8 +198,35 @@ fun ShoppingCartScreen() {
                     )
                 )
             }
-
         }
+    }
+}
+
+@Composable
+fun ItemTextCart(
+    title: String,
+    price: String,
+    color: Color,
+    fWeight: FontWeight
+) {
+    Row(modifier = Modifier.padding(start = 22.dp, end = 22.dp, top = 16.dp)) {
+        Text(
+            text = title,
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontWeight = fWeight,
+                color = color
+            )
+        )
+        Spacer(modifier = Modifier.weight(1f))
+        Text(
+            text = price,
+            style = TextStyle(
+                fontSize = 16.sp,
+                fontWeight = fWeight,
+                color = color
+            )
+        )
     }
 }
 
@@ -322,12 +309,17 @@ fun ItemCart(
                             ),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(imageVector = Icons.Default.Remove, contentDescription = null, tint = Color.Black, modifier = Modifier.size(15.dp))
+                        Icon(
+                            imageVector = Icons.Default.Remove,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(15.dp)
+                        )
                     }
                     Column(
                         modifier = Modifier.size(20.dp),
 
-                    ) {
+                        ) {
                         // Top border
                         Box(
                             modifier = Modifier
@@ -342,7 +334,12 @@ fun ItemCart(
                                 .fillMaxSize(),
                             contentAlignment = Alignment.Center
                         ) {
-                            Text(text = quantity, color = Color.Black, fontSize = 10.sp,textAlign = TextAlign.Center)
+                            Text(
+                                text = quantity,
+                                color = Color.Black,
+                                fontSize = 10.sp,
+                                textAlign = TextAlign.Center
+                            )
                         }
                         // Bottom border
                         Box(
@@ -371,7 +368,12 @@ fun ItemCart(
                             ),
                         contentAlignment = Alignment.Center
                     ) {
-                        Icon(imageVector = Icons.Default.Add, contentDescription = null, tint = Color.Black, modifier = Modifier.size(15.dp))
+                        Icon(
+                            imageVector = Icons.Default.Add,
+                            contentDescription = null,
+                            tint = Color.Black,
+                            modifier = Modifier.size(15.dp)
+                        )
                     }
                 }
             }

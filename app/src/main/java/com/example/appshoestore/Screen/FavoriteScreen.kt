@@ -15,7 +15,9 @@ import androidx.compose.foundation.layout.offset
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -46,14 +48,18 @@ import com.example.appshoestore.ui.theme.f1
 
 @Composable
 fun FavoriteScreen(navController: NavController) {
+    val scrollState = rememberScrollState()
     Box(
         modifier = Modifier
             .background(Color.White)
-            .padding(top = 16.dp)
+            .padding(top = 16.dp, bottom = 60.dp)
             .fillMaxSize()
     ) {
         Column(
-            modifier = Modifier.fillMaxWidth()
+            modifier = Modifier
+                .fillMaxSize()
+                .verticalScroll(scrollState)
+                .background(Color.White)
         ) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(Modifier.weight(1f)) {
