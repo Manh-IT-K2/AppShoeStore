@@ -2,12 +2,10 @@ package com.example.appshoestore.Navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
-import androidx.compose.ui.Modifier
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 import com.example.appshoestore.Screen.FavoriteScreen
 import com.example.appshoestore.Screen.HomeScreen
@@ -16,7 +14,7 @@ import com.example.appshoestore.Screen.ProductDetailScreen
 import com.example.appshoestore.Screen.ProfileScreen
 import com.example.appshoestore.Screen.SearchScreen
 import com.example.appshoestore.Screen.SettingScreen
-import com.example.appshoestore.Screen.ShoppingCartScreen
+import com.example.appshoestore.Screen.ShoppingCart.ShoppingCartScreen
 
 @Composable
 fun AppNavigationHost(navController: NavHostController, currentIndex: MutableIntState) {
