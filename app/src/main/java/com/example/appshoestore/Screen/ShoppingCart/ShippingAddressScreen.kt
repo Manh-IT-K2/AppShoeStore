@@ -173,9 +173,9 @@ fun ShippingAddressScreen() {
                     )
                     Spacer(modifier = Modifier.width(16.dp))
                     Text(
-                        text = "Add new Address",
+                        text = "Add New Address",
                         style = TextStyle(
-                            fontWeight = FontWeight.Bold,
+                            fontWeight = FontWeight.Normal,
                             fontSize = 22.sp,
                             color = Color.White
                         )
@@ -194,7 +194,7 @@ fun ShippingAddressScreen() {
                 Text(
                     text = "Next",
                     style = TextStyle(
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.Normal,
                         fontSize = 22.sp,
                         color = Color.White
                     )

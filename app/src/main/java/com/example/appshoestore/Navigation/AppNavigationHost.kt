@@ -14,6 +14,7 @@ import com.example.appshoestore.Screen.ProductDetailScreen
 import com.example.appshoestore.Screen.ProfileScreen
 import com.example.appshoestore.Screen.SearchScreen
 import com.example.appshoestore.Screen.SettingScreen
+import com.example.appshoestore.Screen.ShoppingCart.PaymentMethodScreen
 import com.example.appshoestore.Screen.ShoppingCart.ShoppingCartScreen
 
 @Composable
@@ -37,8 +38,8 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
         }
 
         // notification
-        composable(NavigationItem.NOTIFICATION) {
-            NotificationScreen()
+        composable(NavigationItem.PAYMENT) {
+            PaymentMethodScreen()
         }
 
         // setting

@@ -81,7 +81,7 @@ fun BottomBar() {
             Icons.Default.Home
         ),
         SmoothAnimationBottomBarScreens(
-            NavigationItem.NOTIFICATION,
+            NavigationItem.PAYMENT,
             stringResource(id = R.string.Notification),
             Icons.Default.Notifications
         ),

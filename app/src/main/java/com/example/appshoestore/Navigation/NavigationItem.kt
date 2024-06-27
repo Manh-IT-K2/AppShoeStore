@@ -9,5 +9,6 @@ object NavigationItem {
     const val NOTIFICATION = "notification"
     const val PROFILE = "profile"
     const val FAVORITE = "favorite"
+    const val PAYMENT = "payment"
 
 }
