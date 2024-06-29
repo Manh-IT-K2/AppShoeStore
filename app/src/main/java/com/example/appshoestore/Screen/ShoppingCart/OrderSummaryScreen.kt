@@ -19,6 +19,8 @@ import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.rememberScrollState
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.verticalScroll
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
@@ -39,6 +41,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.compose.ui.unit.TextUnit
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.appshoestore.R
@@ -46,13 +49,16 @@ import com.example.appshoestore.R
 @Preview
 @Composable
 fun OrderSummaryScreen() {
+    val scrollState = rememberScrollState()
     Box(
         modifier = Modifier
             .background(Color.White)
-            .padding(22.dp, 16.dp)
+            .padding(22.dp, 0.dp)
+            .verticalScroll(scrollState)
             .fillMaxSize()
     ) {
         Column {
+            Spacer(modifier = Modifier.height(16.dp))
             Row(
                 modifier = Modifier.fillMaxWidth(),
                 verticalAlignment = Alignment.CenterVertically
@@ -140,7 +146,7 @@ fun OrderSummaryScreen() {
                 ),
                 modifier = Modifier.padding(top = 16.dp)
             )
-            val scrollState = rememberScrollState()
+            //val scrollState = rememberScrollState()
             Card(
                 modifier = Modifier
                     .padding(top = 22.dp)
@@ -235,7 +241,190 @@ fun OrderSummaryScreen() {
                     }
                 }
             }
+            Text(
+                text = "Payment Details",
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                ),
+                modifier = Modifier.padding(top = 22.dp)
+            )
+            Card(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(100.dp)
+                    .padding(top = 16.dp),
+                elevation = 8.dp,
+                shape = RoundedCornerShape(12.dp),
+                backgroundColor = Color.White
+            ) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Spacer(modifier = Modifier.width(16.dp))
+                    Box(
+                        modifier = Modifier
+                            .background(
+                                Color.Gray.copy(alpha = 0.1f),
+                                shape = RoundedCornerShape(5.dp)
+                            )
+                            .width(50.dp)
+                            .height(50.dp),
+                        contentAlignment = Alignment.Center
+                    ) {
+                        Image(
+                            painter = painterResource(id = R.drawable.logo_techcombank),
+                            contentDescription = null
+                        )
+                    }
+                    Column(
+                        modifier = Modifier
+                            .padding(start = 16.dp)
+                            .width(204.dp)
+                            .fillMaxHeight(),
+                        verticalArrangement = Arrangement.Center
+                    ) {
+                        Text(
+                            text = "Manh-IT-K2",
+                            style = TextStyle(
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Normal,
+                                color = Color.Black
+                            )
+                        )
+                        Text(
+                            text = "0899 3918 2604 890",
+                            style = TextStyle(
+                                fontSize = 18.sp,
+                                fontWeight = FontWeight.Normal,
+                                color = Color.Black
+                            )
+                        )
+                    }
+                    Box(
+                        modifier = Modifier
+                            .width(40.dp)
+                            .height(60.dp)
+                            .padding(bottom = 30.dp, start = 6.dp)
+                            .background(
+                                Color.Blue.copy(alpha = 0.1f),
+                                shape = RoundedCornerShape(5.dp)
+                            )
+                    ) {
+                        IconButton(onClick = { /*TODO*/ }) {
+                            Icon(
+                                imageVector = Icons.Default.EditNote,
+                                contentDescription = null,
+                                tint = Color.Blue.copy(alpha = 0.5f)
+                            )
+                        }
+                    }
+                }
+            }
+            Text(
+                text = "Order Summary",
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                ),
+                modifier = Modifier.padding(top = 16.dp)
+            )
+            ItemTextOrderSummary(
+                title = "Item Total",
+                price = "$3150",
+                color = Color.Black,
+                fontWeight1 = FontWeight.Normal,
+                fontWeight2 = FontWeight.Bold,
+                fontSize = 16.sp
+            )
+            ItemTextOrderSummary(
+                title = "Discount",
+                price = "$20",
+                color = Color.Black,
+                fontWeight1 = FontWeight.Normal,
+                fontWeight2 = FontWeight.Normal,
+                fontSize = 16.sp
+            )
+            ItemTextOrderSummary(
+                title = "Delivery Free",
+                price = "$0",
+                color = Color(0xFF08C26F),
+                fontWeight1 = FontWeight.Normal,
+                fontWeight2 = FontWeight.Normal,
+                fontSize = 16.sp
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(Color.Gray.copy(alpha = 0.2f))
+            )
+            ItemTextOrderSummary(
+                title = "Grand Total",
+                price = "$3130",
+                color = Color.Black,
+                fontWeight1 = FontWeight.Bold,
+                fontWeight2 = FontWeight.Bold,
+                fontSize = 18.sp
+            )
+
+            Button(
+                onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFFFFA500)
+                ),
+                shape = RoundedCornerShape(12.dp),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 22.dp)
+                    .height(70.dp)
+            ) {
+                Text(
+                    text = "Pay Now",
+                    style = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                )
+            }
+
+            Spacer(modifier = Modifier.height(16.dp))
         }
+    }
+}
+
+@Composable
+fun ItemTextOrderSummary(
+    title: String,
+    price: String,
+    color: Color,
+    fontWeight1: FontWeight,
+    fontWeight2: FontWeight,
+    fontSize: TextUnit
+) {
+    Row(
+        modifier = Modifier.padding(top = 16.dp),
+        verticalAlignment = Alignment.CenterVertically
+    ) {
+        Text(
+            text = title,
+            style = TextStyle(
+                fontSize = fontSize,
+                fontWeight = fontWeight1,
+                color = color
+            )
+        )
+        Text(
+            text = price,
+            style = TextStyle(
+                fontSize = fontSize,
+                fontWeight = fontWeight2,
+                color = color,
+                textAlign = TextAlign.End
+            ),
+            modifier = Modifier.fillMaxWidth()
+        )
     }
 }
 
