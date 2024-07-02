@@ -52,6 +52,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.appshoestore.Constant.CustomOutlinedTextField
+import com.example.appshoestore.Constant.ItemCreditCard
+import com.example.appshoestore.Constant.ItemSelectedStep
 import com.example.appshoestore.R
 
 @Composable
@@ -263,105 +266,4 @@ fun PaymentMethodScreen() {
             }
         }
     }
-}
-
-@Composable
-fun ItemCreditCard(
-    logo: Int,
-    numberCard: String,
-    elevation: Int,
-    composable: @Composable () -> Unit = {}
-) {
-    Card(
-        modifier = Modifier
-            .fillMaxWidth()
-            .height(70.dp),
-        elevation = elevation.dp,
-        backgroundColor = Color.White,
-        shape = RoundedCornerShape(12.dp)
-    ) {
-        Row(
-            modifier = Modifier
-                .padding(start = 16.dp)
-                .fillMaxWidth(),
-            verticalAlignment = Alignment.CenterVertically
-        ) {
-            Box(
-                modifier = Modifier
-                    .width(50.dp)
-                    .height(50.dp)
-                    .background(
-                        Color.Gray.copy(alpha = 0.3f), shape = RoundedCornerShape(5.dp),
-                    ),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = logo),
-                    contentDescription = null,
-                    modifier = Modifier.size(40.dp)
-                )
-            }
-            Text(
-                text = numberCard,
-                style = TextStyle(
-                    fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal,
-                    color = Color.Black
-                ),
-                modifier = Modifier.padding(start = 6.dp)
-            )
-            Spacer(modifier = Modifier.weight(1f))
-            composable()
-        }
-    }
-}
-
-@Preview
-@Composable
-fun TestItemCreditCard() {
-    ItemCreditCard(
-        logo = R.drawable.logo_techcombank,
-        numberCard = "8764 3421 0967 4738",
-        elevation = 8,
-        composable = {
-            RadioButton(
-                selected = false,
-                onClick = { },
-                colors = RadioButtonDefaults.colors(
-                    Color.Gray.copy(alpha = 0.3f)
-                ),
-            )
-        })
-}
-
-@Composable
-fun CustomOutlinedTextField(
-    title: String,
-    value: String,
-    modifier: Modifier
-) {
-    var text by remember { mutableStateOf(value) }
-
-    OutlinedTextField(
-        value = text,
-        onValueChange = { newText -> text = newText },
-        label = { Text(title, color = Color.Blue.copy(alpha = 0.3f)) },
-        modifier = modifier,
-        colors = TextFieldDefaults.outlinedTextFieldColors(
-            textColor = Color.Blue,
-            focusedBorderColor = Color.Blue.copy(alpha = 0.3f),
-            unfocusedBorderColor = Color.Blue.copy(alpha = 0.3f),
-            backgroundColor = Color.Transparent
-        )
-    )
-}
-
-@Preview(showBackground = true)
-@Composable
-fun PreviewCustomOutlinedTextField() {
-    CustomOutlinedTextField(
-        title = "Card Number", value = "8764 3421 0967 4738", modifier = Modifier
-            .fillMaxWidth()
-            .padding(16.dp)
-    )
 }
