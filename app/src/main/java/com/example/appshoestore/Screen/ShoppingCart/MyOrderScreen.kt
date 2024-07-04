@@ -31,12 +31,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.appshoestore.Constant.ItemOrder
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun MyOrderScreen() {
+fun MyOrderScreen(navController: NavController) {
     val scrollPage = rememberScrollState()
     Box(
         modifier = Modifier
@@ -52,7 +53,9 @@ fun MyOrderScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(modifier = Modifier.weight(1f)) {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBackIos,
                             contentDescription = null,
@@ -107,7 +110,8 @@ fun MyOrderScreen() {
                     Column(
                         Modifier
                             .height(200.dp)
-                            .verticalScroll(scrollState)) {
+                            .verticalScroll(scrollState)
+                    ) {
                         ItemOrder(
                             image = R.drawable.s6,
                             nameProduct = "Ios Samsung",
@@ -149,7 +153,9 @@ fun MyOrderScreen() {
                     Spacer(modifier = Modifier.height(6.dp))
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Button(
-                            onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+                            onClick = {
+                                navController.navigate(NavigationItem.FULL_ORDER_DETAIL)
+                            }, colors = ButtonDefaults.buttonColors(
                                 backgroundColor = Color(0xFFF5F5F5),
                             ),
                             shape = RoundedCornerShape(12.dp),
@@ -223,7 +229,8 @@ fun MyOrderScreen() {
                     Column(
                         Modifier
                             .height(200.dp)
-                            .verticalScroll(scrollState)) {
+                            .verticalScroll(scrollState)
+                    ) {
                         ItemOrder(
                             image = R.drawable.s6,
                             nameProduct = "Ios Samsung",
@@ -247,7 +254,9 @@ fun MyOrderScreen() {
                     Spacer(modifier = Modifier.height(6.dp))
                     Row(modifier = Modifier.fillMaxWidth()) {
                         Button(
-                            onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+                            onClick = {
+                                navController.navigate(NavigationItem.FULL_ORDER_DETAIL)
+                            }, colors = ButtonDefaults.buttonColors(
                                 backgroundColor = Color(0xFFF5F5F5),
                             ),
                             shape = RoundedCornerShape(12.dp),

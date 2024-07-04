@@ -1,5 +1,6 @@
 package com.example.appshoestore.Constant
 
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -9,6 +10,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Card
+import androidx.compose.material.ContentAlpha
 import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.RadioButton
@@ -43,12 +45,23 @@ fun ItemAddress(
         shape = RoundedCornerShape(12.dp)
     ) {
 
-        Row(modifier = Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        Row(
+            modifier = Modifier
+                .fillMaxWidth()
+                .background(Color.White),
+            verticalAlignment = Alignment.CenterVertically
+        ) {
             RadioButton(
-                selected = select, onClick = { /*TODO*/ }, colors = RadioButtonDefaults.colors(
-                    Color.Blue.copy(alpha = 0.3f)
+                selected = select,
+                onClick = {
+                },
+                colors = RadioButtonDefaults.colors(
+                    selectedColor = Color.Gray, // Color when the RadioButton is selected
+                    unselectedColor = Color.Gray, // Color when the RadioButton is not selected
+                    disabledColor = Color.Gray.copy(alpha = ContentAlpha.disabled) // Color when the RadioButton is disabled
                 )
             )
+
             Column(modifier = Modifier.width(250.dp)) {
                 Text(
                     text = title,

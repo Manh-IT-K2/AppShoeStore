@@ -31,14 +31,16 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.appshoestore.Constant.ItemCart
 import com.example.appshoestore.Constant.ItemTextOrderSummary
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 import com.example.appshoestore.ui.theme.f1
 
-@Preview
 @Composable
-fun ShoppingCartScreen() {
+fun ShoppingCartScreen(navController: NavController) {
     val scrollState = rememberScrollState()
     Box(
         modifier = Modifier
@@ -176,13 +178,15 @@ fun ShoppingCartScreen() {
                 fontSize = 22.sp
             )
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                          navController.navigate(NavigationItem.SHIPPING)
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFFA500)),
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
                     .padding(0.dp, 22.dp)
                     .fillMaxWidth()
-                    .height(60.dp)
+                    .height(50.dp)
             ) {
                 Text(
                     text = "Buy",
@@ -193,6 +197,7 @@ fun ShoppingCartScreen() {
                     )
                 )
             }
+            Spacer(modifier = Modifier.height(80.dp))
         }
     }
 }

@@ -35,14 +35,14 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.appshoestore.Constant.ItemOrder
 import com.example.appshoestore.Constant.ItemSelectedStep
 import com.example.appshoestore.Constant.ItemTextOrderSummary
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun OrderPlacedDetailScreen() {
+fun OrderPlacedDetailScreen(navController: NavController) {
     Box(
         Modifier
             .background(Color.White)
@@ -56,7 +56,9 @@ fun OrderPlacedDetailScreen() {
                 modifier = Modifier.fillMaxWidth()
             ) {
                 Box(modifier = Modifier.weight(0.5f)) {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBackIos,
                             contentDescription = null,
@@ -272,7 +274,7 @@ fun OrderPlacedDetailScreen() {
                 fontWeight2 = FontWeight.Bold,
                 fontSize = 18.sp
             )
-            Spacer(modifier = Modifier.height(22.dp))
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }

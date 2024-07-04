@@ -24,6 +24,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
 import com.PratikFagadiya.smoothanimationbottombar.model.SmoothAnimationBottomBarScreens
 import com.PratikFagadiya.smoothanimationbottombar.properties.BottomBarProperties
@@ -64,7 +65,7 @@ class MainActivity : ComponentActivity() {
             onBoardingUtils.setOnBoardingCompleted()
             scope.launch {
                 setContent {
-                   BottomBar()
+                    BottomBar()
                 }
             }
         }
@@ -81,7 +82,7 @@ fun BottomBar() {
             Icons.Default.Home
         ),
         SmoothAnimationBottomBarScreens(
-            NavigationItem.PAYMENT,
+            NavigationItem.NOTIFICATION,
             stringResource(id = R.string.Notification),
             Icons.Default.Notifications
         ),
@@ -92,12 +93,12 @@ fun BottomBar() {
         ),
         SmoothAnimationBottomBarScreens(
             NavigationItem.SEARCH,
-            stringResource(id = R.string.Cart),
+            stringResource(id = R.string.Search),
             Icons.Default.Search
         ),
         SmoothAnimationBottomBarScreens(
             NavigationItem.PROFILE,
-            stringResource(id = R.string.Cart),
+            stringResource(id = R.string.Account),
             Icons.Default.Person
         ),
     )
@@ -107,26 +108,47 @@ fun BottomBar() {
         mutableIntStateOf(0)
     }
 
-    Scaffold(bottomBar = {
-        SmoothAnimationBottomBar(navController,
-            bottomNavigationItems,
-            initialIndex = currentIndex,
-            bottomBarProperties = BottomBarProperties(
-                backgroundColor = Color.White,
-                indicatorColor = Color.Magenta.copy(alpha = 0.2F),
-                iconTintColor = BlueTint,
-                iconTintActiveColor = Color.Magenta,
-                textActiveColor = Color.Black,
-                cornerRadius = 18.dp,
-                fontWeight = FontWeight.Medium,
-                fontSize = 16.sp
-            ),
-            onSelectItem = {
-                Log.i("SELECTED_ITEM", "onCreate: Selected Item ${it.name}")
-            })
-    }) { innerPadding ->
+    val currentRoute = navController.currentBackStackEntryAsState().value?.destination?.route
+
+    Scaffold(
+        bottomBar = {
+            if (
+                currentRoute !in listOf(
+                    NavigationItem.SHIPPING,
+                    NavigationItem.PAYMENT,
+                    NavigationItem.ORDER_SUMMARY,
+                    NavigationItem.ORDER_DETAIL,
+                    NavigationItem.ORDER_PLACED_DETAIL,
+                    NavigationItem.PAYMENT_SUCCESS,
+                    NavigationItem.FULL_ORDER_DETAIL,
+                    NavigationItem.SETTING,
+                    NavigationItem.FAVORITE,
+                    NavigationItem.PRODUCT_DETAIL
+                )
+            ) {
+                SmoothAnimationBottomBar(
+                    navController,
+                    bottomNavigationItems,
+                    initialIndex = currentIndex,
+                    bottomBarProperties = BottomBarProperties(
+                        backgroundColor = Color.White,
+                        indicatorColor = Color.Magenta.copy(alpha = 0.2F),
+                        iconTintColor = BlueTint,
+                        iconTintActiveColor = Color.Magenta,
+                        textActiveColor = Color.Black,
+                        cornerRadius = 18.dp,
+                        fontWeight = FontWeight.Medium,
+                        fontSize = 16.sp
+                    ),
+                    onSelectItem = {
+                        Log.i("SELECTED_ITEM", "onCreate: Selected Item ${it.name}")
+                    }
+                )
+            }
+        }
+    ) { innerPadding ->
         Modifier.padding(innerPadding)
         AppNavigationHost(navController, currentIndex)
     }
-
 }
+

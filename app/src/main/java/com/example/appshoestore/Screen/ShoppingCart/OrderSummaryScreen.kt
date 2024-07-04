@@ -39,14 +39,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.appshoestore.Constant.ItemPurchasedProduct
 import com.example.appshoestore.Constant.ItemSelectedStep
 import com.example.appshoestore.Constant.ItemTextOrderSummary
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun OrderSummaryScreen() {
+fun OrderSummaryScreen(navController: NavController) {
     val scrollState = rememberScrollState()
     Box(
         modifier = Modifier
@@ -62,7 +63,9 @@ fun OrderSummaryScreen() {
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Box(modifier = Modifier.weight(1f)) {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBackIos,
                             contentDescription = null,
@@ -368,14 +371,16 @@ fun OrderSummaryScreen() {
             )
 
             Button(
-                onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+                onClick = {
+                    navController.navigate(NavigationItem.PAYMENT_SUCCESS)
+                }, colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFFFA500)
                 ),
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
                     .fillMaxWidth()
                     .padding(top = 22.dp)
-                    .height(70.dp)
+                    .height(50.dp)
             ) {
                 Text(
                     text = "Pay Now",

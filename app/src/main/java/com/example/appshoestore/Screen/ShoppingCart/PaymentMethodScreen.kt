@@ -52,14 +52,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.appshoestore.Constant.CustomOutlinedTextField
 import com.example.appshoestore.Constant.ItemCreditCard
 import com.example.appshoestore.Constant.ItemSelectedStep
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 
 @Composable
-@Preview
-fun PaymentMethodScreen() {
+fun PaymentMethodScreen(navController: NavController) {
     val scrollState = rememberScrollState()
     Box(
         modifier = Modifier
@@ -75,7 +76,9 @@ fun PaymentMethodScreen() {
                         .weight(0.5f)
 
                 ) {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBackIos,
                             contentDescription = null,
@@ -248,12 +251,14 @@ fun PaymentMethodScreen() {
                 })
             Spacer(modifier = Modifier.height(16.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                          navController.navigate(NavigationItem.ORDER_SUMMARY)
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFFA500)),
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(70.dp)
+                    .height(50.dp)
             ) {
                 Text(
                     text = "Next",

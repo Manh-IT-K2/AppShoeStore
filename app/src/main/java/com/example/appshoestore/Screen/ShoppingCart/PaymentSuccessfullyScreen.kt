@@ -2,6 +2,7 @@ package com.example.appshoestore.Screen.ShoppingCart
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Spacer
@@ -24,11 +25,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun PaymentSuccessfullyScreen() {
+fun PaymentSuccessfullyScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .background(Color.White)
@@ -66,15 +69,20 @@ fun PaymentSuccessfullyScreen() {
                     color = Color.Blue.copy(alpha = 0.5f)
                 ),
                 modifier = Modifier.padding(top = 16.dp)
+                    .clickable {
+                        navController.navigate(NavigationItem.ORDER_DETAIL)
+                    }
             )
             Spacer(modifier = Modifier.weight(1f))
             Button(
-                onClick = { /*TODO*/ }, colors = ButtonDefaults.buttonColors(
+                onClick = {
+                          navController.navigate(NavigationItem.HOME)
+                }, colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFFFA500),
                 ), shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(70.dp)
+                    .height(50.dp)
             ) {
                 Text(
                     text = "Back to Home",

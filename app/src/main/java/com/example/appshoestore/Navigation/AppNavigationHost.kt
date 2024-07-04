@@ -4,6 +4,7 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableIntState
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
+import androidx.navigation.Navigation
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
@@ -14,7 +15,13 @@ import com.example.appshoestore.Screen.ProductDetailScreen
 import com.example.appshoestore.Screen.ProfileScreen
 import com.example.appshoestore.Screen.SearchScreen
 import com.example.appshoestore.Screen.SettingScreen
+import com.example.appshoestore.Screen.ShoppingCart.FullOrderDetailScreen
+import com.example.appshoestore.Screen.ShoppingCart.MyOrderScreen
+import com.example.appshoestore.Screen.ShoppingCart.OrderPlacedDetailScreen
+import com.example.appshoestore.Screen.ShoppingCart.OrderSummaryScreen
 import com.example.appshoestore.Screen.ShoppingCart.PaymentMethodScreen
+import com.example.appshoestore.Screen.ShoppingCart.PaymentSuccessfullyScreen
+import com.example.appshoestore.Screen.ShoppingCart.ShippingAddressScreen
 import com.example.appshoestore.Screen.ShoppingCart.ShoppingCartScreen
 
 @Composable
@@ -38,8 +45,8 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
         }
 
         // notification
-        composable(NavigationItem.PAYMENT) {
-            PaymentMethodScreen()
+        composable(NavigationItem.NOTIFICATION) {
+            NotificationScreen()
         }
 
         // setting
@@ -49,7 +56,7 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
 
         // Shopping cart
         composable(NavigationItem.SHOPPING_CART) {
-            ShoppingCartScreen()
+            ShoppingCartScreen(navController)
         }
 
         // search
@@ -65,6 +72,41 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
         // favorite
         composable(NavigationItem.FAVORITE){
             FavoriteScreen(navController)
+        }
+
+        // shipping address
+        composable(NavigationItem.SHIPPING){
+            ShippingAddressScreen(navController)
+        }
+
+        // payment method
+        composable(NavigationItem.PAYMENT){
+            PaymentMethodScreen(navController)
+        }
+
+        // order summary
+        composable(NavigationItem.ORDER_SUMMARY){
+            OrderSummaryScreen(navController)
+        }
+
+        // full order detail
+        composable(NavigationItem.FULL_ORDER_DETAIL){
+            FullOrderDetailScreen(navController)
+        }
+
+        // order placed detail
+        composable(NavigationItem.ORDER_PLACED_DETAIL){
+            OrderPlacedDetailScreen(navController)
+        }
+
+        // payment success
+        composable(NavigationItem.PAYMENT_SUCCESS){
+            PaymentSuccessfullyScreen(navController)
+        }
+
+        // order detail
+        composable(NavigationItem.ORDER_DETAIL){
+            MyOrderScreen(navController)
         }
 
     }

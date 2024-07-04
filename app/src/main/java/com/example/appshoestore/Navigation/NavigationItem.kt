@@ -10,5 +10,11 @@ object NavigationItem {
     const val PROFILE = "profile"
     const val FAVORITE = "favorite"
     const val PAYMENT = "payment"
+    const val SHIPPING = "shipping"
+    const val ORDER_SUMMARY = "order_summary"
+    const val PAYMENT_SUCCESS = "payment_success"
+    const val ORDER_DETAIL = "order_detail"
+    const val FULL_ORDER_DETAIL = "full_order_detail"
+    const val ORDER_PLACED_DETAIL = "order_placed_detail"
 
 }

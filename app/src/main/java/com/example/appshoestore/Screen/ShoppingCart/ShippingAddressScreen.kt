@@ -33,12 +33,13 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.appshoestore.Constant.ItemAddress
 import com.example.appshoestore.Constant.ItemSelectedStep
+import com.example.appshoestore.Navigation.NavigationItem
 
-@Preview
 @Composable
-fun ShippingAddressScreen() {
+fun ShippingAddressScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .background(Color.White)
@@ -52,7 +53,9 @@ fun ShippingAddressScreen() {
                         .weight(0.5f)
 
                 ) {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBackIos,
                             contentDescription = null,
@@ -157,7 +160,7 @@ fun ShippingAddressScreen() {
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(70.dp)
+                    .height(50.dp)
             ) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Icon(
@@ -170,26 +173,28 @@ fun ShippingAddressScreen() {
                         text = "Add New Address",
                         style = TextStyle(
                             fontWeight = FontWeight.Normal,
-                            fontSize = 22.sp,
+                            fontSize = 16.sp,
                             color = Color.White
                         )
                     )
                 }
             }
-            Spacer(modifier = Modifier.height(100.dp))
+            Spacer(modifier = Modifier.height(50.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(NavigationItem.PAYMENT)
+                },
                 colors = ButtonDefaults.buttonColors(backgroundColor = Color(0xFFFFA500)),
                 shape = RoundedCornerShape(12.dp),
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(70.dp)
+                    .height(50.dp)
             ) {
                 Text(
                     text = "Next",
                     style = TextStyle(
                         fontWeight = FontWeight.Normal,
-                        fontSize = 22.sp,
+                        fontSize = 16.sp,
                         color = Color.White
                     )
                 )

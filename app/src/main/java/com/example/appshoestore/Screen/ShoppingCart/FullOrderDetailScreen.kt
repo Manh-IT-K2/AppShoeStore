@@ -1,7 +1,6 @@
 package com.example.appshoestore.Screen.ShoppingCart
 
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,12 +21,7 @@ import androidx.compose.material.Icon
 import androidx.compose.material.IconButton
 import androidx.compose.material.Text
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.ArrowBackIos
-import androidx.compose.material.icons.filled.Visibility
-import androidx.compose.material.icons.outlined.LocalShipping
-import androidx.compose.material.icons.outlined.ShareLocation
-import androidx.compose.material.icons.outlined.Token
 import androidx.compose.material.icons.outlined.Visibility
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -35,19 +29,18 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.example.appshoestore.Constant.ItemOrder
+import androidx.navigation.NavController
+import androidx.navigation.Navigation
 import com.example.appshoestore.Constant.ItemOrderDetail
-import com.example.appshoestore.Constant.ItemSelectedStep
 import com.example.appshoestore.Constant.ItemTextOrderSummary
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun FullOrderDetailScreen() {
+fun FullOrderDetailScreen(navController: NavController) {
     var scrollState = rememberScrollState()
     Box(
         modifier = Modifier
@@ -60,7 +53,9 @@ fun FullOrderDetailScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 Box(modifier = Modifier.weight(0.5f)) {
-                    IconButton(onClick = { /*TODO*/ }) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBackIos,
                             contentDescription = null,
@@ -208,7 +203,9 @@ fun FullOrderDetailScreen() {
             )
             Spacer(modifier = Modifier.height(22.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(NavigationItem.ORDER_PLACED_DETAIL)
+                },
                 colors = ButtonDefaults.buttonColors(
                     backgroundColor = Color(0xFFFFA500)
                 ),

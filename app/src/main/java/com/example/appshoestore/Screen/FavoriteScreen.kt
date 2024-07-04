@@ -43,16 +43,22 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.appshoestore.R
 import com.example.appshoestore.ui.theme.f1
 
+@Preview
+@Composable
+fun PreviewFavoriteScreen(){
+    FavoriteScreen(navController = rememberNavController())
+}
 @Composable
 fun FavoriteScreen(navController: NavController) {
     val scrollState = rememberScrollState()
     Box(
         modifier = Modifier
             .background(Color.White)
-            .padding(top = 16.dp, bottom = 60.dp)
+            .padding(start = 22.dp, end = 22.dp)
             .fillMaxSize()
     ) {
         Column(
@@ -61,12 +67,13 @@ fun FavoriteScreen(navController: NavController) {
                 .verticalScroll(scrollState)
                 .background(Color.White)
         ) {
+            Spacer(modifier = Modifier.height(16.dp))
             Row(verticalAlignment = Alignment.CenterVertically) {
-                Box(Modifier.weight(1f)) {
+                Box(Modifier.weight(0.5f)) {
                     IconButton(
                         onClick = { navController.popBackStack() },
                         modifier = Modifier
-                            .padding(start = 16.dp, top = 16.dp)
+                            .padding(top = 16.dp)
                             .shadow(
                                 elevation = 24.dp,
                                 spotColor = DefaultShadowColor,
@@ -82,7 +89,7 @@ fun FavoriteScreen(navController: NavController) {
                         )
                     }
                 }
-                Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
+                Box(modifier = Modifier.weight(2f), contentAlignment = Alignment.Center) {
                     Text(
                         text = "My Favorites",
                         style = TextStyle(
@@ -94,7 +101,7 @@ fun FavoriteScreen(navController: NavController) {
                         )
                     )
                 }
-                Box(modifier = Modifier.weight(1f))
+                Box(modifier = Modifier.weight(0.5f))
             }
             Spacer(modifier = Modifier.height(16.dp))
             ItemMyFavorite(img = R.drawable.s1, nameProduct = "Macbook", price = "$3900")
@@ -103,6 +110,7 @@ fun FavoriteScreen(navController: NavController) {
             ItemMyFavorite(img = R.drawable.s4, nameProduct = "Readme", price = "$2300")
             ItemMyFavorite(img = R.drawable.s5, nameProduct = "Ios", price = "$2600")
             ItemMyFavorite(img = R.drawable.s6, nameProduct = "Android", price = "$1700")
+            Spacer(modifier = Modifier.height(32.dp))
 
         }
     }
@@ -119,7 +127,7 @@ fun ItemMyFavorite(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(start = 22.dp, end = 22.dp, top = 10.dp)
+            .padding(top = 10.dp)
             .height(100.dp),
         shape = RoundedCornerShape(15.dp),
         elevation = 8.dp,
