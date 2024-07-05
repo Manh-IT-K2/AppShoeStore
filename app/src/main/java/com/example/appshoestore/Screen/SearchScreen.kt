@@ -1,5 +1,6 @@
 package com.example.appshoestore.Screen
 
+import android.util.Log
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -30,8 +31,12 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
+import androidx.compose.material.icons.filled.Tune
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -39,6 +44,7 @@ import androidx.compose.ui.draw.rotate
 import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.painter.Painter
+import androidx.compose.ui.platform.LocalConfiguration
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
@@ -47,10 +53,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.appshoestore.R
+import kotlin.math.log
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun SearchScreen() {
+fun SearchScreen(openBottomSheet: () -> Unit) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -59,48 +65,77 @@ fun SearchScreen() {
         //contentAlignment = Alignment.Center
     ) {
         Column() {
-            Card(
-                modifier = Modifier
-                    .height(70.dp)
-                    .fillMaxWidth()
-                    .padding(start = 22.dp, end = 22.dp, top = 10.dp)
-                    .clickable { },
-                shape = RoundedCornerShape(15.dp),
-                elevation = 8.dp,
-                backgroundColor = Color.White
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(
+                verticalAlignment = Alignment.CenterVertically,
+                modifier = Modifier.fillMaxWidth()
             ) {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.padding(start = 16.dp)
+                Card(
+                    modifier = Modifier
+                        .height(50.dp)
+                        .weight(1f)
+                        .padding(start = 22.dp)
+                        .clickable { },
+                    shape = RoundedCornerShape(12.dp),
+                    elevation = 8.dp,
+                    backgroundColor = Color.White
                 ) {
-                    // Icon search
-                    Icon(
-                        imageVector = Icons.Filled.Search,
-                        contentDescription = "Search",
-                        tint = Color.Black
-                    )
-                    // Spacing between icon and text
-                    Spacer(modifier = Modifier.width(1.dp))
-                    // Text field for search input
-                    TextField(
-                        value = "",
-                        onValueChange = { /* TODO: Handle value change */ },
-                        placeholder = {
-                            Text(
-                                text = "Search",
-                                color = Color.Gray.copy(alpha = 0.6f)
-                            )
-                        },
-                        singleLine = true, // Đảm bảo chỉ có một dòng
-                        modifier = Modifier.weight(1f),
-                        colors = TextFieldDefaults.textFieldColors(
-                            backgroundColor = Color.Transparent,
-                            focusedIndicatorColor = Color.Transparent,
-                            unfocusedIndicatorColor = Color.Transparent,
-                            disabledIndicatorColor = Color.Transparent
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.padding(start = 16.dp)
+                    ) {
+                        // Icon search
+                        Icon(
+                            imageVector = Icons.Filled.Search,
+                            contentDescription = "Search",
+                            tint = Color.Black
                         )
+                        // Spacing between icon and text
+                        Spacer(modifier = Modifier.width(1.dp))
+                        // Text field for search input
+                        TextField(
+                            value = "",
+                            onValueChange = { /* TODO: Handle value change */ },
+                            placeholder = {
+                                Text(
+                                    text = "Search",
+                                    color = Color.Gray.copy(alpha = 0.6f)
+                                )
+                            },
+                            singleLine = true, // Đảm bảo chỉ có một dòng
+                            modifier = Modifier.weight(1f),
+                            colors = TextFieldDefaults.textFieldColors(
+                                backgroundColor = Color.Transparent,
+                                focusedIndicatorColor = Color.Transparent,
+                                unfocusedIndicatorColor = Color.Transparent,
+                                disabledIndicatorColor = Color.Transparent
+                            )
+                        )
+                    }
+                }
+                Spacer(modifier = Modifier.width(6.dp))
+                Box(
+                    modifier = Modifier
+                        .size(50.dp)
+                        .clickable {
+                            // press button display bottom sheet
+                            openBottomSheet()
+                            Log.d("mmm", "no")
+                        }
+                        .background(
+                            color = Color(0xFFFFA500),
+                            shape = RoundedCornerShape(12.dp)
+                        ),
+                    contentAlignment = Alignment.Center
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Tune,
+                        contentDescription = null,
+                        tint = Color.White,
+                        modifier = Modifier.size(35.dp)
                     )
                 }
+                Spacer(modifier = Modifier.width(22.dp))
             }
             Row(
                 Modifier

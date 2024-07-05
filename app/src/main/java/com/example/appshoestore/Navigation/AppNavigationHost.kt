@@ -1,7 +1,12 @@
 package com.example.appshoestore.Navigation
 
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.MutableIntState
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.navigation.NavHostController
 import androidx.navigation.NavType
 import androidx.navigation.Navigation
@@ -26,6 +31,9 @@ import com.example.appshoestore.Screen.ShoppingCart.ShoppingCartScreen
 
 @Composable
 fun AppNavigationHost(navController: NavHostController, currentIndex: MutableIntState) {
+
+    // Khai báo state cho bottom sheet
+    var showBottomSheet by remember { mutableStateOf(false) }
 
     NavHost(navController = navController, startDestination = NavigationItem.HOME) {
 
@@ -61,8 +69,9 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
 
         // search
         composable(NavigationItem.SEARCH) {
-            SearchScreen()
+            SearchScreen(openBottomSheet= {})
         }
+
 
         // profile
         composable(NavigationItem.PROFILE) {
@@ -109,5 +118,12 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
             MyOrderScreen(navController)
         }
 
+    }
+    // Hiển thị bottom sheet ngoài NavHost
+    if (showBottomSheet) {
+        LaunchedEffect(navController) {
+            // Xử lý logic mở bottom sheet ở đây
+            showBottomSheet = false // Đặt lại trạng thái sau khi mở
+        }
     }
 }
