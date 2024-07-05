@@ -69,7 +69,7 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
 
         // search
         composable(NavigationItem.SEARCH) {
-            SearchScreen(openBottomSheet= {})
+            SearchScreen()
         }
 
 
