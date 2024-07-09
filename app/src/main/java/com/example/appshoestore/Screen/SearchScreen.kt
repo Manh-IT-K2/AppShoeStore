@@ -23,6 +23,8 @@ import androidx.compose.foundation.lazy.grid.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.BottomSheetScaffold
 import androidx.compose.material.BottomSheetValue
+import androidx.compose.material.Button
+import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
@@ -110,6 +112,7 @@ fun SearchScreen() {
                 backgroundColor = Color.White
             ) {
                 // Bottom sheet content
+                BottomSheetSearch()
             }
         },
         sheetPeekHeight = 0.dp
@@ -268,6 +271,8 @@ fun SearchScreen() {
             }
         }
     }
+
+    // display bottomSheet
     if (showBottomSheet) {
         LaunchedEffect(bottomSheetState) {
             if (showBottomSheet) {
@@ -401,4 +406,232 @@ fun TestItemProductSearch() {
     ItemProductSearch(img = R.drawable.s1, name = "Mobius OG", price = "$1200", rate = "4.5") {
 
     }
+}
+
+@Preview
+@Composable
+fun BottomSheetSearch() {
+    Box(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        Column(
+            Modifier
+                .fillMaxSize()
+                .padding(start = 22.dp, end = 22.dp)
+        ) {
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Box(
+                    modifier = Modifier
+                        .height(5.dp)
+                        .width(50.dp)
+                        .background(Color.Gray.copy(alpha = 0.5f), shape = RoundedCornerShape(5.dp))
+                )
+            }
+            Text(
+                text = "Filter", style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            )
+            Spacer(modifier = Modifier.height(22.dp))
+
+            // Category
+            Text(
+                text = "Category",
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(Modifier.fillMaxWidth()) {
+                ItemFilter(
+                    title = "Men",
+                    bgColor = Color.Blue.copy(alpha = 0.2f),
+                    txtColor = Color.Blue,
+                    height = 45,
+                    width = 70
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                ItemFilter(
+                    title = "Women",
+                    bgColor = Color.Gray.copy(alpha = 0.3f),
+                    txtColor = Color.Black,
+                    height = 45,
+                    width = 70
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                ItemFilter(
+                    title = "Unisex",
+                    bgColor = Color.Gray.copy(alpha = 0.3f),
+                    txtColor = Color.Black,
+                    height = 45,
+                    width = 70
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(Color.Gray.copy(alpha = 0.3f))
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // size
+            Text(
+                text = "Size",
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(Modifier.fillMaxWidth()) {
+                ItemFilter(
+                    title = "28",
+                    bgColor = Color.Gray.copy(alpha = 0.3f),
+                    txtColor = Color.Black,
+                    height = 45,
+                    width = 70
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                ItemFilter(
+                    title = "29",
+                    bgColor = Color.Gray.copy(alpha = 0.3f),
+                    txtColor = Color.Black,
+                    height = 45,
+                    width = 70
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                ItemFilter(
+                    title = "30",
+                    bgColor = Color.Blue.copy(alpha = 0.2f),
+                    txtColor = Color.Blue,
+                    height = 45,
+                    width = 70
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                ItemFilter(
+                    title = "31",
+                    bgColor = Color.Gray.copy(alpha = 0.3f),
+                    txtColor = Color.Black,
+                    height = 45,
+                    width = 70
+                )
+            }
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(1.dp)
+                    .background(Color.Gray.copy(alpha = 0.3f))
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+
+            // color
+            // size
+            Text(
+                text = "Color",
+                style = TextStyle(
+                    fontSize = 18.sp,
+                    fontWeight = FontWeight.Bold,
+                    color = Color.Black
+                )
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Row(Modifier.fillMaxWidth()) {
+                ItemFilter(
+                    title = "",
+                    bgColor = Color.Red,
+                    txtColor = Color.Black,
+                    height = 45,
+                    width = 45
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                ItemFilter(
+                    title = "",
+                    bgColor = Color.Black,
+                    txtColor = Color.Black,
+                    height = 45,
+                    width = 45
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                ItemFilter(
+                    title = "",
+                    bgColor = Color.Green,
+                    txtColor = Color.Blue,
+                    height = 45,
+                    width = 45
+                )
+                Spacer(modifier = Modifier.width(16.dp))
+                ItemFilter(
+                    title = "",
+                    bgColor = Color.Yellow,
+                    txtColor = Color.Black,
+                    height = 45,
+                    width = 45
+                )
+            }
+            Spacer(modifier = Modifier.height(50.dp))
+            Button(
+                onClick = { /*TODO*/ },
+                colors = ButtonDefaults.buttonColors(
+                    backgroundColor = Color(0xFFFFA500)
+                ),
+                modifier = Modifier
+                    .fillMaxWidth()
+                    .height(50.dp)
+            ) {
+                Text(
+                    text = "Apply", style = TextStyle(
+                        fontSize = 16.sp,
+                        fontWeight = FontWeight.Bold,
+                        color = Color.White
+                    )
+                )
+            }
+
+        }
+    }
+}
+
+@Composable
+fun ItemFilter(
+    title: String,
+    bgColor: Color,
+    txtColor: Color,
+    height: Int,
+    width: Int
+) {
+    Box(
+        Modifier
+            .width(width.dp)
+            .height(height.dp)
+            .background(bgColor, shape = RoundedCornerShape(5.dp)),
+        contentAlignment = Alignment.Center
+    ) {
+        Text(
+            text = title,
+            style = TextStyle(fontSize = 16.sp, fontWeight = FontWeight.Normal, color = txtColor)
+        )
+    }
+}
+
+@Preview
+@Composable
+fun PreviewItemFilter() {
+    ItemFilter(
+        title = "Men",
+        bgColor = Color.Gray.copy(alpha = 0.3f),
+        txtColor = Color.Black,
+        height = 45,
+        width = 70
+    )
 }
