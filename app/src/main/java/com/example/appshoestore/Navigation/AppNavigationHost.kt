@@ -72,7 +72,6 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
             SearchScreen()
         }
 
-
         // profile
         composable(NavigationItem.PROFILE) {
             ProfileScreen(navController)
@@ -118,12 +117,5 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
             MyOrderScreen(navController)
         }
 
-    }
-    // Hiển thị bottom sheet ngoài NavHost
-    if (showBottomSheet) {
-        LaunchedEffect(navController) {
-            // Xử lý logic mở bottom sheet ở đây
-            showBottomSheet = false // Đặt lại trạng thái sau khi mở
-        }
     }
 }

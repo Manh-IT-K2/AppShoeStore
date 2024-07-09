@@ -123,7 +123,7 @@ fun BottomBar() {
                     NavigationItem.FULL_ORDER_DETAIL,
                     NavigationItem.SETTING,
                     NavigationItem.FAVORITE,
-                    NavigationItem.PRODUCT_DETAIL
+                    "${NavigationItem.PRODUCT_DETAIL}/{id}"
                 )
             ) {
                 SmoothAnimationBottomBar(
@@ -132,9 +132,9 @@ fun BottomBar() {
                     initialIndex = currentIndex,
                     bottomBarProperties = BottomBarProperties(
                         backgroundColor = Color.White,
-                        indicatorColor = Color.Magenta.copy(alpha = 0.2F),
-                        iconTintColor = BlueTint,
-                        iconTintActiveColor = Color.Magenta,
+                        indicatorColor = Color.Gray.copy(alpha = 0.1f),
+                        iconTintColor = Color.Gray,
+                        iconTintActiveColor = Color.Black,
                         textActiveColor = Color.Black,
                         cornerRadius = 18.dp,
                         fontWeight = FontWeight.Medium,

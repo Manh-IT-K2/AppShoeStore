@@ -47,6 +47,7 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.setValue
+import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -66,6 +67,7 @@ import com.example.appshoestore.R
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
+@Preview
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun SearchScreen() {
@@ -77,9 +79,18 @@ fun SearchScreen() {
     )
 
     val screenHeight = LocalConfiguration.current.screenHeightDp.dp
-    val bottomSheetHeight = screenHeight - 150.dp
+    val bottomSheetHeight = screenHeight - 100.dp
 
-    // Rest of your BottomSheetScaffold setup
+    // Observe changes in BottomSheetState
+    LaunchedEffect(bottomSheetState.bottomSheetState) {
+        snapshotFlow { bottomSheetState.bottomSheetState.isCollapsed }
+            .collect { isCollapsed ->
+                if (isCollapsed) {
+                    showBottomSheet = false
+                }
+            }
+    }
+
     BottomSheetScaffold(
         sheetShape = RoundedCornerShape(
             topStart = 50.dp,
@@ -87,7 +98,6 @@ fun SearchScreen() {
         ),
         scaffoldState = bottomSheetState,
         sheetContent = {
-            // Your bottom sheet content
             Card(
                 modifier = Modifier
                     .fillMaxWidth()
@@ -98,9 +108,8 @@ fun SearchScreen() {
                     topEnd = 50.dp
                 ),
                 backgroundColor = Color.White
-
             ) {
-
+                // Bottom sheet content
             }
         },
         sheetPeekHeight = 0.dp
@@ -108,170 +117,166 @@ fun SearchScreen() {
         Box(
             modifier = Modifier
                 .fillMaxSize()
-                .background(color = Color.White)
+                .background(if (showBottomSheet) Color.Gray.copy(alpha = 0.3f) else Color.White)
                 .padding(top = 16.dp),
-            //contentAlignment = Alignment.Center
         ) {
-            Column() {
-                Spacer(modifier = Modifier.height(16.dp))
-                Row(
-                    verticalAlignment = Alignment.CenterVertically,
-                    modifier = Modifier.fillMaxWidth()
-                ) {
-                    Card(
-                        modifier = Modifier
-                            .height(50.dp)
-                            .weight(1f)
-                            .padding(start = 22.dp)
-                            .clickable { },
-                        shape = RoundedCornerShape(12.dp),
-                        elevation = 8.dp,
-                        backgroundColor = Color.White
+            if (!showBottomSheet) {
+                Column() {
+                    Spacer(modifier = Modifier.height(16.dp))
+                    Row(
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
                     ) {
-                        Row(
-                            verticalAlignment = Alignment.CenterVertically,
-                            modifier = Modifier.padding(start = 16.dp)
+                        Card(
+                            modifier = Modifier
+                                .height(50.dp)
+                                .weight(1f)
+                                .padding(start = 22.dp)
+                                .clickable { },
+                            shape = RoundedCornerShape(12.dp),
+                            elevation = 8.dp,
+                            backgroundColor = Color.White
                         ) {
-                            // Icon search
-                            Icon(
-                                imageVector = Icons.Filled.Search,
-                                contentDescription = "Search",
-                                tint = Color.Black
-                            )
-                            // Spacing between icon and text
-                            Spacer(modifier = Modifier.width(1.dp))
-                            // Text field for search input
-                            TextField(
-                                value = "",
-                                onValueChange = { /* TODO: Handle value change */ },
-                                placeholder = {
-                                    Text(
-                                        text = "Search",
-                                        color = Color.Gray.copy(alpha = 0.6f)
-                                    )
-                                },
-                                singleLine = true, // Đảm bảo chỉ có một dòng
-                                modifier = Modifier.weight(1f),
-                                colors = TextFieldDefaults.textFieldColors(
-                                    backgroundColor = Color.Transparent,
-                                    focusedIndicatorColor = Color.Transparent,
-                                    unfocusedIndicatorColor = Color.Transparent,
-                                    disabledIndicatorColor = Color.Transparent
+                            Row(
+                                verticalAlignment = Alignment.CenterVertically,
+                                modifier = Modifier.padding(start = 16.dp)
+                            ) {
+                                Icon(
+                                    imageVector = Icons.Filled.Search,
+                                    contentDescription = "Search",
+                                    tint = Color.Black
                                 )
+                                Spacer(modifier = Modifier.width(1.dp))
+                                TextField(
+                                    value = "",
+                                    onValueChange = { /* TODO: Handle value change */ },
+                                    placeholder = {
+                                        Text(
+                                            text = "Search",
+                                            color = Color.Gray.copy(alpha = 0.6f)
+                                        )
+                                    },
+                                    singleLine = true,
+                                    modifier = Modifier.weight(1f),
+                                    colors = TextFieldDefaults.textFieldColors(
+                                        backgroundColor = Color.Transparent,
+                                        focusedIndicatorColor = Color.Transparent,
+                                        unfocusedIndicatorColor = Color.Transparent,
+                                        disabledIndicatorColor = Color.Transparent
+                                    )
+                                )
+                            }
+                        }
+                        Spacer(modifier = Modifier.width(6.dp))
+                        Box(
+                            modifier = Modifier
+                                .size(50.dp)
+                                .clickable {
+                                    showBottomSheet = true
+                                }
+                                .background(
+                                    color = Color(0xFFFFA500),
+                                    shape = RoundedCornerShape(12.dp)
+                                ),
+                            contentAlignment = Alignment.Center
+                        ) {
+                            Icon(
+                                imageVector = Icons.Default.Tune,
+                                contentDescription = null,
+                                tint = Color.White,
+                                modifier = Modifier.size(35.dp)
                             )
                         }
+                        Spacer(modifier = Modifier.width(22.dp))
                     }
-                    Spacer(modifier = Modifier.width(6.dp))
-                    Box(
-                        modifier = Modifier
-                            .size(50.dp)
-                            .clickable {
-                                showBottomSheet = true
-                                Log.d("mmm", "no")
-                            }
-                            .background(
-                                color = Color(0xFFFFA500),
-                                shape = RoundedCornerShape(12.dp)
-                            ),
-                        contentAlignment = Alignment.Center
+                    Row(
+                        Modifier
+                            .padding(horizontal = 22.dp)
+                            .padding(top = 22.dp, bottom = 16.dp)
                     ) {
-                        Icon(
-                            imageVector = Icons.Default.Tune,
-                            contentDescription = null,
-                            tint = Color.White,
-                            modifier = Modifier.size(35.dp)
+                        Text(
+                            text = "Recently Search", style = TextStyle(
+                                fontSize = 22.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black
+                            )
+                        )
+                        Spacer(modifier = Modifier.weight(1f))
+                        Text(
+                            text = "Clear", style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Normal,
+                                color = Color.Blue.copy(alpha = 0.5f)
+                            )
                         )
                     }
-                    Spacer(modifier = Modifier.width(22.dp))
-                }
-                Row(
-                    Modifier
-                        .padding(horizontal = 22.dp)
-                        .padding(top = 22.dp, bottom = 16.dp)
-                ) {
-                    Text(
-                        text = "Recently Search", style = TextStyle(
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Black
-                        )
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        text = "Clear", style = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Normal,
-                            color = Color.Blue.copy(alpha = 0.5f)
-                        )
-                    )
-                }
 
-                val items = remember { List(3) { "Item $it" } }
-                LazyVerticalGrid(
-                    columns = GridCells.Fixed(2),
-                    modifier = Modifier
-                        .fillMaxWidth()
-                        .height(90.dp)
-                        .padding(horizontal = 22.dp),
-                    verticalArrangement = Arrangement.spacedBy(8.dp),
-                    horizontalArrangement = Arrangement.spacedBy(8.dp)
-                ) {
-                    items(items) { item ->
-                        ItemRecentSearch(title = item)
+                    val items = remember { List(3) { "Item $it" } }
+                    LazyVerticalGrid(
+                        columns = GridCells.Fixed(2),
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .height(90.dp)
+                            .padding(horizontal = 22.dp),
+                        verticalArrangement = Arrangement.spacedBy(8.dp),
+                        horizontalArrangement = Arrangement.spacedBy(8.dp)
+                    ) {
+                        items(items) { item ->
+                            ItemRecentSearch(title = item)
+                        }
                     }
-                }
-                Row(
-                    Modifier
-                        .padding(horizontal = 22.dp)
-                        .padding(top = 22.dp, bottom = 16.dp)
-                ) {
-                    Text(
-                        text = "Popular Products", style = TextStyle(
-                            fontSize = 22.sp,
-                            fontWeight = FontWeight.Bold,
-                            color = Color.Black
+                    Row(
+                        Modifier
+                            .padding(horizontal = 22.dp)
+                            .padding(top = 22.dp, bottom = 16.dp)
+                    ) {
+                        Text(
+                            text = "Popular Products", style = TextStyle(
+                                fontSize = 22.sp,
+                                fontWeight = FontWeight.Bold,
+                                color = Color.Black
+                            )
                         )
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Text(
-                        text = "View All", style = TextStyle(
-                            fontSize = 16.sp,
-                            fontWeight = FontWeight.Normal,
-                            color = Color.Blue.copy(alpha = 0.5f)
+                        Spacer(modifier = Modifier.weight(1f))
+                        Text(
+                            text = "View All", style = TextStyle(
+                                fontSize = 16.sp,
+                                fontWeight = FontWeight.Normal,
+                                color = Color.Blue.copy(alpha = 0.5f)
+                            )
                         )
-                    )
+                    }
+                    ItemProductSearch(
+                        img = R.drawable.s1,
+                        name = "Nike",
+                        price = "$1400",
+                        rate = "3.9",
+                        onClick = {})
+                    ItemProductSearch(
+                        img = R.drawable.s2,
+                        name = "Adidas",
+                        price = "$3400",
+                        rate = "4.9",
+                        onClick = {})
+                    ItemProductSearch(
+                        img = R.drawable.s3,
+                        name = "Ios",
+                        price = "$2900",
+                        rate = "4.5",
+                        onClick = {})
                 }
-                ItemProductSearch(
-                    img = R.drawable.s1,
-                    name = "Nike",
-                    price = "$1400",
-                    rate = "3.9",
-                    onClick = {})
-                ItemProductSearch(
-                    img = R.drawable.s2,
-                    name = "Adidas",
-                    price = "$3400",
-                    rate = "4.9",
-                    onClick = {})
-                ItemProductSearch(
-                    img = R.drawable.s3,
-                    name = "Ios",
-                    price = "$2900",
-                    rate = "4.5",
-                    onClick = {})
             }
         }
     }
-    // Handling bottom sheet state outside the scaffold
     if (showBottomSheet) {
         LaunchedEffect(bottomSheetState) {
             if (showBottomSheet) {
                 bottomSheetState.bottomSheetState.expand()
-                showBottomSheet = false // Reset state after expanding
             }
         }
     }
 }
+
 
 @Composable
 fun ItemRecentSearch(
