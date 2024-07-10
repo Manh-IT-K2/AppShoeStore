@@ -32,8 +32,6 @@ import com.example.appshoestore.Screen.ShoppingCart.ShoppingCartScreen
 @Composable
 fun AppNavigationHost(navController: NavHostController, currentIndex: MutableIntState) {
 
-    // Khai báo state cho bottom sheet
-    var showBottomSheet by remember { mutableStateOf(false) }
 
     NavHost(navController = navController, startDestination = NavigationItem.HOME) {
 
@@ -54,7 +52,7 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
 
         // notification
         composable(NavigationItem.NOTIFICATION) {
-            NotificationScreen()
+            NotificationScreen(navController)
         }
 
         // setting
@@ -69,7 +67,7 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
 
         // search
         composable(NavigationItem.SEARCH) {
-            SearchScreen()
+            SearchScreen(navController)
         }
 
         // profile

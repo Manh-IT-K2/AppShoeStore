@@ -84,7 +84,7 @@ fun BottomSheetFilter() {
         sheetPeekHeight = 0.dp
     ) {
         // Content of the screen where you want to display the bottom sheet trigger
-        SearchScreen()
+        //SearchScreen()
 //        Button(onClick = {
 //            showBottomSheet = true
 //        }) {

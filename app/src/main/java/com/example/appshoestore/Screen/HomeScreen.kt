@@ -6,6 +6,7 @@ import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -25,13 +26,18 @@ import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.Card
+import androidx.compose.material.Icon
 
 import androidx.compose.material.Scaffold
 import androidx.compose.material.Text
+import androidx.compose.material.TextField
+import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Home
 import androidx.compose.material.icons.filled.Notifications
+import androidx.compose.material.icons.filled.Search
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
@@ -114,9 +120,61 @@ fun HomeScreen(navController: NavController) {
             .padding(top = 6.dp, bottom = 6.dp)
     ) {
         Column {
-            headerScreen()
+            headerScreen(
+                onclick = {
+                    navController.navigate(NavigationItem.NOTIFICATION)
+                }
+            )
             //LazyColumn {
             //item {
+            Spacer(modifier = Modifier.height(16.dp))
+            Card(
+                modifier = Modifier
+                    .height(50.dp)
+                    .fillMaxWidth()
+                    .padding(start = 22.dp, end = 22.dp)
+                    .clickable {
+                        navController.navigate(NavigationItem.SEARCH)
+                    },
+                shape = RoundedCornerShape(12.dp),
+                backgroundColor = Color.White,
+                elevation = 8.dp
+            ) {
+                Row(
+                    verticalAlignment = Alignment.CenterVertically,
+                    modifier = Modifier.padding(start = 16.dp)
+                ) {
+                    Icon(
+                        imageVector = Icons.Default.Search,
+                        contentDescription = null,
+                        tint = Color.Black
+                    )
+                    TextField(
+                        value = "", onValueChange = {
+                        },
+                        placeholder = {
+                            Text(
+                                text = "Search",
+                                style = TextStyle(
+                                    fontSize = 16.sp,
+                                    fontWeight = FontWeight.Normal,
+                                    color = Color.Gray.copy(alpha = 0.6f)
+                                )
+                            )
+                        },
+                        singleLine = true,
+                        enabled = false,
+                        modifier = Modifier.weight(1f),
+                        colors = TextFieldDefaults.textFieldColors(
+                            backgroundColor = Color.Transparent,
+                            focusedIndicatorColor = Color.Transparent,
+                            unfocusedIndicatorColor = Color.Transparent,
+                            disabledIndicatorColor = Color.Transparent
+                        )
+                    )
+                }
+            }
+            Spacer(modifier = Modifier.height(16.dp))
             Scaffold(modifier = Modifier
                 .fillMaxWidth()
                 .height(200.dp)
@@ -173,10 +231,20 @@ fun HomeScreen(navController: NavController) {
             }
 
         }
-
     }
+}
 
-
+@Preview
+@Composable
+fun PreviewHomeScreen() {
+    var navController = rememberNavController();
+    Box(
+        modifier = Modifier
+            .background(Color.White)
+            .fillMaxSize()
+    ) {
+        HomeScreen(navController = navController)
+    }
 }
 
 @Composable
@@ -202,7 +270,7 @@ fun OnBoardingAdUI(onBoarding: OnBoardingAd) {
 }
 
 @Composable
-fun headerScreen() {
+fun headerScreen(onclick: () -> Unit = {}) {
     Box(
         modifier = Modifier
             .padding(top = 16.dp),
@@ -237,20 +305,13 @@ fun headerScreen() {
                 )
             }
 
-            Box(
-                modifier = Modifier
-                    .size(60.dp)
-                    .clip(CircleShape)
-                    .border(2.dp, Color.White, CircleShape),
-                contentAlignment = Alignment.Center
-            ) {
-                Image(
-                    painter = painterResource(id = R.drawable.user),
+            Box{
+                Icon(
+                    imageVector = Icons.Default.Notifications,
                     contentDescription = null,
-                    contentScale = ContentScale.Crop,
-                    modifier = Modifier
-                        .matchParentSize()
-                        .clip(CircleShape)
+                    tint = Color.Black,
+                    modifier = Modifier.size(35.dp).
+                            clickable { onclick() }
                 )
             }
         }

@@ -28,6 +28,7 @@ import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Card
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material.ModalBottomSheetLayout
 import androidx.compose.material.ModalBottomSheetValue
@@ -35,6 +36,7 @@ import androidx.compose.material.Text
 import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Search
 import androidx.compose.material.icons.filled.Star
@@ -65,14 +67,15 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.appshoestore.R
 import kotlinx.coroutines.launch
 import kotlin.math.log
 
-@Preview
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
-fun SearchScreen() {
+fun SearchScreen(navController: NavController) {
     var showBottomSheet by remember { mutableStateOf(false) }
     val bottomSheetState = rememberBottomSheetScaffoldState(
         bottomSheetState = rememberBottomSheetState(
@@ -125,6 +128,38 @@ fun SearchScreen() {
         ) {
             if (!showBottomSheet) {
                 Column() {
+                    Row(
+                        modifier = Modifier
+                            .fillMaxWidth()
+                            .padding(start = 12.dp, end = 22.dp),
+                        verticalAlignment = Alignment.CenterVertically
+                    ) {
+                        Box(
+                            modifier = Modifier.weight(1f),
+                            contentAlignment = Alignment.CenterStart
+                        ) {
+                            IconButton(onClick = {
+                                navController.popBackStack()
+                            }) {
+                                Icon(
+                                    imageVector = Icons.Default.ArrowBackIos,
+                                    contentDescription = null,
+                                    tint = Color.Black
+                                )
+                            }
+                        }
+                        Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
+                            Text(
+                                text = "Search",
+                                style = TextStyle(
+                                    fontSize = 22.sp,
+                                    fontWeight = FontWeight.Bold,
+                                    color = Color.Black
+                                )
+                            )
+                        }
+                        Box(modifier = Modifier.weight(1f))
+                    }
                     Spacer(modifier = Modifier.height(16.dp))
                     Row(
                         verticalAlignment = Alignment.CenterVertically,
@@ -149,7 +184,6 @@ fun SearchScreen() {
                                     contentDescription = "Search",
                                     tint = Color.Black
                                 )
-                                Spacer(modifier = Modifier.width(1.dp))
                                 TextField(
                                     value = "",
                                     onValueChange = { /* TODO: Handle value change */ },
@@ -282,6 +316,12 @@ fun SearchScreen() {
     }
 }
 
+@Preview
+@Composable
+fun PreviewSearchScreen() {
+    val navController = rememberNavController()
+    SearchScreen(navController = navController)
+}
 
 @Composable
 fun ItemRecentSearch(

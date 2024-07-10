@@ -81,21 +81,21 @@ fun BottomBar() {
             stringResource(id = R.string.Home),
             Icons.Default.Home
         ),
-        SmoothAnimationBottomBarScreens(
-            NavigationItem.NOTIFICATION,
-            stringResource(id = R.string.Notification),
-            Icons.Default.Notifications
-        ),
+//        SmoothAnimationBottomBarScreens(
+//            NavigationItem.NOTIFICATION,
+//            stringResource(id = R.string.Notification),
+//            Icons.Default.Notifications
+//        ),
         SmoothAnimationBottomBarScreens(
             NavigationItem.SHOPPING_CART,
             stringResource(id = R.string.Cart),
             Icons.Default.ShoppingCart
         ),
-        SmoothAnimationBottomBarScreens(
-            NavigationItem.SEARCH,
-            stringResource(id = R.string.Search),
-            Icons.Default.Search
-        ),
+//        SmoothAnimationBottomBarScreens(
+//            NavigationItem.SEARCH,
+//            stringResource(id = R.string.Search),
+//            Icons.Default.Search
+//        ),
         SmoothAnimationBottomBarScreens(
             NavigationItem.PROFILE,
             stringResource(id = R.string.Account),
@@ -123,6 +123,8 @@ fun BottomBar() {
                     NavigationItem.FULL_ORDER_DETAIL,
                     NavigationItem.SETTING,
                     NavigationItem.FAVORITE,
+                    NavigationItem.SEARCH,
+                    NavigationItem.NOTIFICATION,
                     "${NavigationItem.PRODUCT_DETAIL}/{id}"
                 )
             ) {
@@ -136,7 +138,7 @@ fun BottomBar() {
                         iconTintColor = Color.Gray,
                         iconTintActiveColor = Color.Black,
                         textActiveColor = Color.Black,
-                        cornerRadius = 18.dp,
+                        cornerRadius = 100.dp,
                         fontWeight = FontWeight.Medium,
                         fontSize = 16.sp
                     ),

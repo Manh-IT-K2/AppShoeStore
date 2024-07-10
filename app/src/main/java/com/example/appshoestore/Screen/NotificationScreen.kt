@@ -20,7 +20,9 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.Icon
+import androidx.compose.material.IconButton
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.ArrowBackIos
 import androidx.compose.material.icons.rounded.Notifications
 import androidx.compose.material.icons.rounded.Security
 import androidx.compose.material.icons.rounded.Settings
@@ -32,11 +34,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import androidx.navigation.compose.rememberNavController
 import com.example.appshoestore.ui.theme.f1
 
-@Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun NotificationScreen() {
+fun NotificationScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .fillMaxSize()
@@ -44,17 +47,38 @@ fun NotificationScreen() {
             .padding(22.dp, 16.dp),
     ) {
         Column(modifier = Modifier.fillMaxWidth()) {
-            Text(
-                text = "Notifications",
-                color = Color.Black,
-                textAlign = TextAlign.Center,
-                style = TextStyle(
-                    fontSize = 22.sp,
-                    fontWeight = FontWeight.Bold,
-                    fontFamily = f1
-                ),
-                modifier = Modifier.fillMaxWidth()
-            )
+            Row(
+                modifier = Modifier
+                    .fillMaxWidth(),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
+                Box(
+                    modifier = Modifier.weight(1f),
+                    contentAlignment = Alignment.CenterStart
+                ) {
+                    IconButton(onClick = {
+                        navController.popBackStack()
+                    }) {
+                        Icon(
+                            imageVector = Icons.Default.ArrowBackIos,
+                            contentDescription = null,
+                            tint = Color.Black
+                        )
+                    }
+                }
+                Box(modifier = Modifier.weight(1f), contentAlignment = Alignment.Center) {
+                    Text(
+                        text = "Notification",
+                        style = TextStyle(
+                            fontSize = 22.sp,
+                            fontWeight = FontWeight.Bold,
+                            color = Color.Black
+                        )
+                    )
+                }
+                Box(modifier = Modifier.weight(1f))
+            }
+            Spacer(modifier = Modifier.height(16.dp))
             Text(
                 text = "Today", color = Color.Gray,
                 style = TextStyle(
@@ -92,6 +116,13 @@ fun NotificationScreen() {
     }
 }
 
+@Preview
+@Composable
+fun PreviewNotificationScreen(){
+    val navController = rememberNavController();
+    NotificationScreen(navController = navController)
+}
+
 @Composable
 fun ItemNotificationUI(
     icon: ImageVector,
@@ -124,10 +155,12 @@ fun ItemNotificationUI(
                     text = title, color = Color.Black, style = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,
-                        fontFamily = f1
+
                     )
                 )
-                Box(modifier = Modifier.fillMaxWidth().padding(top = 6.dp), contentAlignment = Alignment.BottomEnd) {
+                Box(modifier = Modifier
+                    .fillMaxWidth()
+                    .padding(top = 6.dp), contentAlignment = Alignment.BottomEnd) {
                     Text(
                         text = "03:20 PM",
                         color = Color.Gray,
