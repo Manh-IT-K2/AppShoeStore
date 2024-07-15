@@ -11,6 +11,7 @@ import androidx.compose.material.icons.filled.VisibilityOff
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
 import androidx.compose.ui.tooling.preview.Preview
@@ -46,7 +47,8 @@ fun CustomTextFieldPassword(
             focusedBorderColor = Color.Blue.copy(alpha = 0.3f),
             unfocusedBorderColor = Color.Blue.copy(alpha = 0.3f),
             backgroundColor = Color.Transparent
-        )
+        ),
+        textStyle = TextStyle(color = Color.Blue.copy(alpha = 0.5f))
     )
 }
 

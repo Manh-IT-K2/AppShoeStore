@@ -31,6 +31,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import com.example.appshoestore.Constant.CustomOutlinedButton
 import com.example.appshoestore.Constant.CustomOutlinedTextField
 import com.example.appshoestore.Constant.CustomTextFieldPassword
 import com.example.appshoestore.R
@@ -152,31 +153,19 @@ fun LoginScreen() {
                 )
             }
             Spacer(modifier = Modifier.height(16.dp))
-            OutlinedTextField(
-                value = "GooGle",
-                onValueChange = { },
-                label = { Text("") },
-                leadingIcon = {
-                    Icon(
-                        imageVector = Icons.Default.Gamepad, // Đảm bảo bạn đã thêm icon Google vào drawable
-                        contentDescription = "Google Icon",
-                        tint = Color.Unspecified
-                    )
-                },
-                modifier = Modifier.fillMaxWidth(),
-                placeholder = {
-                    Text(
-                        text = "Google",
-                        color = Color.Blue.copy(alpha = 0.3f)
-                    )
-                },
-                colors = TextFieldDefaults.outlinedTextFieldColors(
-                    textColor = Color.Blue,
-                    focusedBorderColor = Color.Blue.copy(alpha = 0.3f),
-                    unfocusedBorderColor = Color.Blue.copy(alpha = 0.3f),
-                    backgroundColor = Color.Transparent
+            Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+                CustomOutlinedButton(
+                    title = "Google",
+                    icon = R.drawable.icon_google,
+                    modifier = Modifier.weight(1f).height(50.dp)
                 )
-            )
+                Spacer(modifier = Modifier.width(16.dp))
+                CustomOutlinedButton(
+                    title = "Google",
+                    icon = R.drawable.icon_facebook,
+                    modifier = Modifier.weight(1f).height(50.dp)
+                )
+            }
             Spacer(modifier = Modifier.height(16.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Text(
