@@ -38,7 +38,11 @@ fun CustomTextFieldPassword(
                 Icons.Filled.VisibilityOff
 
             IconButton(onClick = { isPasswordVisible = !isPasswordVisible }) {
-                Icon(imageVector = image, contentDescription = null, tint = Color.Blue.copy(alpha = 0.3f))
+                Icon(
+                    imageVector = image,
+                    contentDescription = null,
+                    tint = Color.Blue.copy(alpha = 0.3f)
+                )
             }
         },
         visualTransformation = if (isPasswordVisible) VisualTransformation.None else PasswordVisualTransformation(),
@@ -54,9 +58,19 @@ fun CustomTextFieldPassword(
 
 @Preview
 @Composable
-fun PreviewCustomTextFieldPassword(){
-    Box(modifier = Modifier.fillMaxWidth().height(500.dp).background(Color.White)){
-        CustomTextFieldPassword(title = "Email Address", onTextChange = {
-        }, value = "Email Address")
+fun PreviewCustomTextFieldPassword() {
+    var text by remember { mutableStateOf("") }
+
+    Box(
+        modifier = Modifier
+            .fillMaxWidth()
+            .height(500.dp)
+            .background(Color.White)
+    ) {
+        CustomTextFieldPassword(
+            title = "Email Address",
+            value = text,
+            onTextChange = { text = it }
+        )
     }
 }

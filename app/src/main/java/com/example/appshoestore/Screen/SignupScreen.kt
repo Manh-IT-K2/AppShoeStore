@@ -2,6 +2,8 @@ package com.example.appshoestore.Screen
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -11,11 +13,22 @@ import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.verticalScroll
 import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
+import androidx.compose.material.Icon
 import androidx.compose.material.Text
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,19 +45,21 @@ import com.example.appshoestore.R
 
 @Preview
 @Composable
-fun LoginScreen() {
+fun SignupScreen() {
+    var scrollState = rememberScrollState()
     Box(
         modifier = Modifier
             .background(Color.White)
             .fillMaxSize()
             .padding(start = 22.dp, end = 22.dp)
+            .verticalScroll(scrollState)
 
     ) {
         Column() {
             Spacer(modifier = Modifier.height(16.dp))
             Image(painter = painterResource(id = R.drawable.logo_app), contentDescription = null)
             Text(
-                text = "Welcome Back \uD83D\uDC4B",
+                text = "Register Account \uD83D\uDC4B",
                 style = TextStyle(
                     fontSize = 16.sp,
                     fontWeight = FontWeight.Bold,
@@ -56,7 +71,7 @@ fun LoginScreen() {
                     text = "to",
                     style = TextStyle(
                         fontSize = 16.sp,
-                        fontWeight = FontWeight.Bold,
+                        fontWeight = FontWeight.Normal,
                         color = Color.Black
                     )
                 )
@@ -81,27 +96,55 @@ fun LoginScreen() {
             )
             Spacer(modifier = Modifier.height(16.dp))
             CustomOutlinedTextField(
+                title = "User Name",
+                value = "Qmanh",
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            CustomOutlinedTextField(
                 title = "Email Address",
                 value = "quanmanh@Gmail.com",
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
+            var txtPass by remember { mutableStateOf("") }
+
             CustomTextFieldPassword(
                 title = "Password",
-                onTextChange = {},
-                value = "Password",
+                value = txtPass,
+                onTextChange = { txtPass = it },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
-            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) {
-                Text(
-                    text = "Forgot Password?",
-                    style = TextStyle(
-                        fontSize = 16.sp,
-                        fontWeight = FontWeight.Normal,
-                        color = Color.Blue.copy(alpha = 0.5f)
+            var txtRePass by remember { mutableStateOf("") }
+            CustomTextFieldPassword(
+                title = "Confirm Password",
+                value = txtRePass,
+                onTextChange = { txtRePass = it },
+                modifier = Modifier.fillMaxWidth()
+            )
+            Spacer(modifier = Modifier.height(16.dp))
+            Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    RadioButtonSquare()
+                    Spacer(modifier = Modifier.width(10.dp))
+                    Text(
+                        text = " I agree to the ",
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color.Black
+                        )
                     )
-                )
+                    Text(
+                        text = "Terms & Privacy Policy",
+                        style = TextStyle(
+                            fontSize = 16.sp,
+                            fontWeight = FontWeight.Normal,
+                            color = Color.Blue.copy(alpha = 0.5f)
+                        )
+                    )
+                }
             }
             Spacer(modifier = Modifier.height(32.dp))
             Button(
@@ -114,7 +157,7 @@ fun LoginScreen() {
                 )
             ) {
                 Text(
-                    text = "Login",
+                    text = "Register",
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
@@ -167,7 +210,7 @@ fun LoginScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
                 Text(
-                    text = "Didn't have an account?",
+                    text = "Already have an account?",
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,
@@ -176,7 +219,7 @@ fun LoginScreen() {
                 )
                 Spacer(modifier = Modifier.width(6.dp))
                 Text(
-                    text = "Register",
+                    text = "Login",
                     style = TextStyle(
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
@@ -184,6 +227,37 @@ fun LoginScreen() {
                     )
                 )
             }
+            Spacer(modifier = Modifier.height(22.dp))
+        }
+    }
+
+}
+
+@Composable
+fun RadioButtonSquare() {
+    var isChecked by remember { mutableStateOf(false) }
+
+    Box(
+        contentAlignment = Alignment.Center,
+        modifier = Modifier
+            .size(20.dp)
+            .background(
+                if (isChecked) Color(0xFFFFA500) else Color.Transparent,
+                shape = RoundedCornerShape(6.dp)
+            )
+            .clickable { isChecked = !isChecked }
+            .border(
+                width = 2.dp,
+                color = if (isChecked) Color(0xFFFFA500) else Color.Gray.copy(alpha = 0.5f)
+            )
+    ) {
+        if (isChecked) {
+            Icon(
+                imageVector = Icons.Default.Check,
+                contentDescription = "Checked",
+                tint = Color.White,
+                modifier = Modifier.size(30.dp)
+            )
         }
     }
 }
