@@ -54,12 +54,17 @@ fun OtpVerificationScreen() {
             .fillMaxSize()
             .background(Color.White)
             .padding(start = 22.dp, end = 22.dp)
-            .verticalScroll(scrollState))
+            .verticalScroll(scrollState)
+    )
     {
         Column {
             Spacer(modifier = Modifier.height(16.dp))
             IconButton(onClick = { /*TODO*/ }) {
-                Icon(imageVector = Icons.Default.ArrowBackIos, contentDescription = null, tint = Color.Black)
+                Icon(
+                    imageVector = Icons.Default.ArrowBackIos,
+                    contentDescription = null,
+                    tint = Color.Black
+                )
             }
             Spacer(modifier = Modifier.height(16.dp))
             Text(
