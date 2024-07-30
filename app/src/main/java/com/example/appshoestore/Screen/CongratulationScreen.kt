@@ -53,7 +53,7 @@ fun CongratulationScreen() {
                 )
                 Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                     Text(
-                        text = "Congratulation",
+                        text = "Congratulation️ \uD83C\uDF89",
                         style = TextStyle(
                             fontSize = 22.sp,
                             fontWeight = FontWeight.Bold,

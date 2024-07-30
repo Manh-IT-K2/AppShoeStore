@@ -75,6 +75,11 @@ dependencies {
     //bottom navigation bar
     implementation 'com.github.PratikFagadiya:AnimatedSmoothBottomNavigation-JetpackCompose:1.1.2'
 
+    // retrofit
+    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.1"
+
 }
 
 tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
