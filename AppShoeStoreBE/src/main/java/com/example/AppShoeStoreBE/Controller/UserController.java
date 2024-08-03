@@ -1,6 +1,8 @@
 package com.example.AppShoeStoreBE.Controller;
 
+import com.example.AppShoeStoreBE.Entity.User;
 import com.example.AppShoeStoreBE.Request.User.CreateAccountRequest;
+import com.example.AppShoeStoreBE.Request.User.LoginAccountRequest;
 import com.example.AppShoeStoreBE.Service.User.UserService;
 import com.example.AppShoeStoreBE.Util.ApiResponse;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,8 +22,19 @@ public class UserController {
 
     // create account
     @PostMapping("createAccount")
-    public ResponseEntity<ApiResponse<String>> createAccount(@RequestBody CreateAccountRequest u) {
-        ApiResponse<String> response = userService.CreateAccount(u);
+    public ResponseEntity<ApiResponse<User>> createAccount(@RequestBody CreateAccountRequest u) {
+        ApiResponse<User> response = userService.CreateAccount(u);
+        if (response.isStatus()) {
+            return ResponseEntity.ok(response);
+        } else {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+        }
+    }
+
+    // login account
+    @PostMapping("loginAccount")
+    public ResponseEntity<ApiResponse<User>> loginAccount(@RequestBody LoginAccountRequest u) {
+        ApiResponse<User> response = userService.LoginAccount(u);
         if (response.isStatus()) {
             return ResponseEntity.ok(response);
         } else {
