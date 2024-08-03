@@ -1,6 +1,6 @@
 package com.example.appshoestore.Util
 
-import com.example.appshoestore.Service.ApiService
+import com.example.appshoestore.Service.UserService
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
@@ -13,7 +13,7 @@ object RetrofitInstance {
             .build()
     }
 
-    val api: ApiService by lazy {
-        retrofit.create(ApiService::class.java)
+    val api: UserService by lazy {
+        retrofit.create(UserService::class.java)
     }
 }
