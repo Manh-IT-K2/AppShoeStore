@@ -15,6 +15,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
 import com.example.appshoestore.Screen.FavoriteScreen
 import com.example.appshoestore.Screen.HomeScreen
+import com.example.appshoestore.Screen.LoginScreen
 import com.example.appshoestore.Screen.NotificationScreen
 import com.example.appshoestore.Screen.ProductDetailScreen
 import com.example.appshoestore.Screen.ProfileScreen
@@ -28,16 +29,27 @@ import com.example.appshoestore.Screen.ShoppingCart.PaymentMethodScreen
 import com.example.appshoestore.Screen.ShoppingCart.PaymentSuccessfullyScreen
 import com.example.appshoestore.Screen.ShoppingCart.ShippingAddressScreen
 import com.example.appshoestore.Screen.ShoppingCart.ShoppingCartScreen
+import com.example.appshoestore.Screen.SignupScreen
 
 @Composable
 fun AppNavigationHost(navController: NavHostController, currentIndex: MutableIntState) {
 
 
-    NavHost(navController = navController, startDestination = NavigationItem.HOME) {
+    NavHost(navController = navController, startDestination = NavigationItem.SIGNUP) {
 
         // Home
         composable(NavigationItem.HOME) {
             HomeScreen(navController)
+        }
+
+        // sign up
+        composable(NavigationItem.SIGNUP){
+            SignupScreen(navController)
+        }
+
+        // login
+        composable(NavigationItem.LOGIN){
+            LoginScreen(navController)
         }
 
         //Product detail

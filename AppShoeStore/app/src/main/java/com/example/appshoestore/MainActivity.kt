@@ -123,6 +123,8 @@ fun BottomBar() {
                     NavigationItem.FULL_ORDER_DETAIL,
                     NavigationItem.SETTING,
                     NavigationItem.FAVORITE,
+                    NavigationItem.SIGNUP,
+                    NavigationItem.LOGIN,
                     NavigationItem.SEARCH,
                     NavigationItem.NOTIFICATION,
                     "${NavigationItem.PRODUCT_DETAIL}/{id}"

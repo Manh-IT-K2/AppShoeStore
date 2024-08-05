@@ -20,13 +20,12 @@ import androidx.compose.ui.unit.dp
 fun CustomOutlinedTextField(
     title: String,
     value: String,
+    onTextChange: (String) -> Unit,
     modifier: Modifier
 ) {
-    var text by remember { mutableStateOf(value) }
-
     OutlinedTextField(
-        value = text,
-        onValueChange = { newText -> text = newText },
+        value = value,
+        onValueChange = onTextChange,
         label = { Text(title, color = Color.Blue.copy(alpha = 0.3f)) },
         modifier = modifier,
         colors = TextFieldDefaults.outlinedTextFieldColors(
@@ -43,7 +42,10 @@ fun CustomOutlinedTextField(
 @Composable
 fun PreviewCustomOutlinedTextField() {
     CustomOutlinedTextField(
-        title = "Card Number", value = "8764 3421 0967 4738", modifier = Modifier
+        title = "Card Number",
+        value = "8764 3421 0967 4738",
+        onTextChange = {},
+        modifier = Modifier
             .fillMaxWidth()
             .padding(16.dp)
     )

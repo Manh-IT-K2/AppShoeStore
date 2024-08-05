@@ -212,23 +212,35 @@ fun PaymentMethodScreen(navController: NavController) {
                             }
                         })
                     CustomOutlinedTextField(
-                        title = "Card Number", value = "8764 3421 0967 4738", modifier = Modifier
+                        title = "Card Number",
+                        value = "8764 3421 0967 4738",
+                        onTextChange = {},
+                        modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 16.dp, end = 16.dp)
                     )
                     CustomOutlinedTextField(
-                        title = "Card Holder Name", value = "MANH-IT-K2", modifier = Modifier
+                        title = "Card Holder Name",
+                        value = "MANH-IT-K2",
+                        onTextChange = {},
+                        modifier = Modifier
                             .fillMaxWidth()
                             .padding(start = 16.dp, end = 16.dp)
                     )
                     Row(modifier = Modifier.fillMaxWidth()) {
                         CustomOutlinedTextField(
-                            title = "Expiry Day", value = "07/29", modifier = Modifier
+                            title = "Expiry Day",
+                            value = "07/29",
+                            onTextChange = {},
+                            modifier = Modifier
                                 .weight(1f)
                                 .padding(start = 16.dp)
                         )
                         CustomOutlinedTextField(
-                            title = "CVV", value = "202", modifier = Modifier
+                            title = "CVV",
+                            value = "202",
+                            onTextChange = {},
+                            modifier = Modifier
                                 .weight(1f)
                                 .padding(start = 6.dp, end = 16.dp)
                         )

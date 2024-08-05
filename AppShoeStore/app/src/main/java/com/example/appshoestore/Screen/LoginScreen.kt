@@ -25,14 +25,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.appshoestore.Constant.CustomOutlinedButton
 import com.example.appshoestore.Constant.CustomOutlinedTextField
 import com.example.appshoestore.Constant.CustomTextFieldPassword
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun LoginScreen() {
+fun LoginScreen(navController: NavController) {
     Box(
         modifier = Modifier
             .background(Color.White)
@@ -83,6 +83,7 @@ fun LoginScreen() {
             CustomOutlinedTextField(
                 title = "Email Address",
                 value = "quanmanh@Gmail.com",
+                onTextChange = {},
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))

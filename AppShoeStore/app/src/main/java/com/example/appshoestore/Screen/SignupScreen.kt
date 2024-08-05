@@ -1,5 +1,7 @@
 package com.example.appshoestore.Screen
 
+import android.util.Log
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -32,21 +34,46 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
+import androidx.navigation.NavController
 import com.example.appshoestore.Constant.CustomOutlinedButton
 import com.example.appshoestore.Constant.CustomOutlinedTextField
 import com.example.appshoestore.Constant.CustomTextFieldPassword
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
+import com.example.appshoestore.Repository.UserRepository
+import com.example.appshoestore.Request.CreateAccountRequest
+import com.example.appshoestore.ViewModel.UserViewModel
 
-@Preview
 @Composable
-fun SignupScreen() {
+fun SignupScreen(navController: NavController) {
+    val  context = LocalContext.current
     var scrollState = rememberScrollState()
+
+    //
+    var userName by remember {
+        mutableStateOf("")
+    }
+    var email by remember {
+        mutableStateOf("")
+    }
+    var passWord by remember {
+        mutableStateOf("")
+    }
+    var txtRePass by remember { mutableStateOf("") }
+    var agreeToTerms by remember { mutableStateOf(false) }
+
+    // Get the ViewModel
+    val viewModel: UserViewModel = viewModel()
+
     Box(
         modifier = Modifier
             .background(Color.White)
@@ -97,26 +124,26 @@ fun SignupScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             CustomOutlinedTextField(
                 title = "User Name",
-                value = "Qmanh",
+                value = userName,
+                onTextChange = {userName = it},
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
             CustomOutlinedTextField(
                 title = "Email Address",
-                value = "quanmanh@Gmail.com",
+                value = email,
+                onTextChange = {email = it},
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
-            var txtPass by remember { mutableStateOf("") }
 
             CustomTextFieldPassword(
                 title = "Password",
-                value = txtPass,
-                onTextChange = { txtPass = it },
+                value = passWord,
+                onTextChange = { passWord = it },
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
-            var txtRePass by remember { mutableStateOf("") }
             CustomTextFieldPassword(
                 title = "Confirm Password",
                 value = txtRePass,
@@ -126,7 +153,10 @@ fun SignupScreen() {
             Spacer(modifier = Modifier.height(16.dp))
             Box(modifier = Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Row(verticalAlignment = Alignment.CenterVertically) {
-                    RadioButtonSquare()
+                    RadioButtonSquare(
+                        isChecked = agreeToTerms,
+                        onCheckedChange = { agreeToTerms = it }
+                    )
                     Spacer(modifier = Modifier.width(10.dp))
                     Text(
                         text = " I agree to the ",
@@ -148,7 +178,23 @@ fun SignupScreen() {
             }
             Spacer(modifier = Modifier.height(32.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    if(userName != "" || passWord != "" || email != ""){
+                        if (agreeToTerms) {
+                            Log.d("string", userName + passWord + email)
+                            if(txtRePass == passWord){
+                                val request = CreateAccountRequest(userName, passWord, email)
+                                viewModel.createAccount(request)
+                            } else {
+                                Toast.makeText(context, "Passwords are not the same", Toast.LENGTH_SHORT).show()
+                            }
+                        } else {
+                            Toast.makeText(context, "Please agree to the terms", Toast.LENGTH_SHORT).show()
+                        }
+                    } else {
+                        Toast.makeText(context, "Please complete all information", Toast.LENGTH_SHORT).show()
+                    }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -164,6 +210,16 @@ fun SignupScreen() {
                         color = Color.White
                     )
                 )
+            }
+            viewModel.createAccountResponse.observe(LocalLifecycleOwner.current) { response ->
+                if (response != null) {
+                    if (response.status) {
+                        Toast.makeText(context, "Account created successfully", Toast.LENGTH_SHORT).show()
+                        navController.navigate(NavigationItem.LOGIN)
+                    } else {
+                        Toast.makeText(context, "Failed to create account", Toast.LENGTH_SHORT).show()
+                    }
+                }
             }
             Spacer(modifier = Modifier.height(16.dp))
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -234,9 +290,10 @@ fun SignupScreen() {
 }
 
 @Composable
-fun RadioButtonSquare() {
-    var isChecked by remember { mutableStateOf(false) }
-
+fun RadioButtonSquare(
+    isChecked: Boolean,
+    onCheckedChange: (Boolean) -> Unit
+) {
     Box(
         contentAlignment = Alignment.Center,
         modifier = Modifier
@@ -245,7 +302,9 @@ fun RadioButtonSquare() {
                 if (isChecked) Color(0xFFFFA500) else Color.Transparent,
                 shape = RoundedCornerShape(6.dp)
             )
-            .clickable { isChecked = !isChecked }
+            .clickable {
+                onCheckedChange(!isChecked)
+            }
             .border(
                 width = 2.dp,
                 color = if (isChecked) Color(0xFFFFA500) else Color.Gray.copy(alpha = 0.5f)
@@ -256,7 +315,7 @@ fun RadioButtonSquare() {
                 imageVector = Icons.Default.Check,
                 contentDescription = "Checked",
                 tint = Color.White,
-                modifier = Modifier.size(30.dp)
+                modifier = Modifier.size(16.dp)
             )
         }
     }

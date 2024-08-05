@@ -74,7 +74,7 @@ fun OnBoardingScreen(onFinished: () -> Unit) {
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .background(Color.LightGray),
+                .background(Color.White),
             horizontalArrangement = Arrangement.SpaceBetween,
             verticalAlignment = Alignment.CenterVertically
         ) {

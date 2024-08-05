@@ -1,6 +1,8 @@
 package com.example.appshoestore.Navigation
 
 object NavigationItem {
+    const val SIGNUP = "signup"
+    const val LOGIN = "login"
     const val HOME = "home"
     const val PRODUCT_DETAIL = "product_details"
     const val SETTING = "setting"

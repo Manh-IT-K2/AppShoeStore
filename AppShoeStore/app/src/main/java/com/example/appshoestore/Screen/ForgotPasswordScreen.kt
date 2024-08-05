@@ -72,6 +72,7 @@ fun ForgotPasswordScreen() {
             CustomOutlinedTextField(
                 title = "Email Address",
                 value = "quanmanh@Gmail.com",
+                onTextChange = {},
                 modifier = Modifier.fillMaxWidth()
             )
             Image(
