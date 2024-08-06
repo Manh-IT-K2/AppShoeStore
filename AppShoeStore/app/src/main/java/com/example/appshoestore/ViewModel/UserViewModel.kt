@@ -24,6 +24,7 @@ class UserViewModel : ViewModel() {
                 createAccountResponse.postValue(response.body())
             } else {
                 // Handle error
+                println("Register fail")
             }
         }
     }
@@ -35,7 +36,7 @@ class UserViewModel : ViewModel() {
             if (response.isSuccessful) {
                 loginAccountResponse.postValue(response.body())
             } else {
-
+                println("Login fail")
             }
         }
     }

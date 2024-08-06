@@ -219,6 +219,8 @@ fun SignupScreen(navController: NavController) {
                     } else {
                         Toast.makeText(context, "Failed to create account", Toast.LENGTH_SHORT).show()
                     }
+                } else {
+                    Toast.makeText(context, "Failed to create account", Toast.LENGTH_SHORT).show()
                 }
             }
             Spacer(modifier = Modifier.height(16.dp))
@@ -280,7 +282,10 @@ fun SignupScreen(navController: NavController) {
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Blue.copy(alpha = 0.5f)
-                    )
+                    ),
+                    modifier = Modifier.clickable {
+                        navController.navigate(NavigationItem.LOGIN)
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(22.dp))

@@ -35,7 +35,7 @@ import com.example.appshoestore.Screen.SignupScreen
 fun AppNavigationHost(navController: NavHostController, currentIndex: MutableIntState) {
 
 
-    NavHost(navController = navController, startDestination = NavigationItem.SIGNUP) {
+    NavHost(navController = navController, startDestination = NavigationItem.LOGIN) {
 
         // Home
         composable(NavigationItem.HOME) {

@@ -1,7 +1,9 @@
 package com.example.appshoestore.Screen
 
+import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -16,23 +18,48 @@ import androidx.compose.material.Button
 import androidx.compose.material.ButtonDefaults
 import androidx.compose.material.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
 import com.example.appshoestore.Constant.CustomOutlinedButton
 import com.example.appshoestore.Constant.CustomOutlinedTextField
 import com.example.appshoestore.Constant.CustomTextFieldPassword
+import com.example.appshoestore.Model.User
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
+import com.example.appshoestore.Request.LoginAccountRequest
+import com.example.appshoestore.Util.ApiResponse
+import com.example.appshoestore.ViewModel.UserViewModel
 
 @Composable
 fun LoginScreen(navController: NavController) {
+    val context = LocalContext.current
+
+    //
+    var email by remember {
+        mutableStateOf("")
+    }
+    var passWord by remember {
+        mutableStateOf("")
+    }
+
+    // get the viewModel
+    val viewModel: UserViewModel = viewModel()
+
     Box(
         modifier = Modifier
             .background(Color.White)
@@ -82,15 +109,15 @@ fun LoginScreen(navController: NavController) {
             Spacer(modifier = Modifier.height(16.dp))
             CustomOutlinedTextField(
                 title = "Email Address",
-                value = "quanmanh@Gmail.com",
-                onTextChange = {},
+                value = email,
+                onTextChange = {email = it},
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
             CustomTextFieldPassword(
                 title = "Password",
-                onTextChange = {},
-                value = "Password",
+                value = passWord,
+                onTextChange = {passWord = it},
                 modifier = Modifier.fillMaxWidth()
             )
             Spacer(modifier = Modifier.height(16.dp))
@@ -106,7 +133,14 @@ fun LoginScreen(navController: NavController) {
             }
             Spacer(modifier = Modifier.height(32.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                  if (email != "" || passWord != ""){
+                      val request = LoginAccountRequest(email, passWord);
+                      viewModel.loginAccount(request)
+                  } else {
+                      Toast.makeText(context, "Please complete all information", Toast.LENGTH_SHORT).show()
+                  }
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -122,6 +156,18 @@ fun LoginScreen(navController: NavController) {
                         color = Color.White
                     )
                 )
+            }
+            viewModel.loginAccountResponse.observe(LocalLifecycleOwner.current) { response ->
+                if (response != null){
+                    if (response.status) {
+                        Toast.makeText(context, "Login successfully", Toast.LENGTH_SHORT).show()
+                        navController.navigate(NavigationItem.HOME)
+                    } else {
+                        Toast.makeText(context, "Failed to login", Toast.LENGTH_SHORT).show()
+                    }
+                } else {
+                    Toast.makeText(context, "Failed to login", Toast.LENGTH_SHORT).show()
+                }
             }
             Spacer(modifier = Modifier.height(16.dp))
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
@@ -182,7 +228,10 @@ fun LoginScreen(navController: NavController) {
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Bold,
                         color = Color.Blue.copy(alpha = 0.5f)
-                    )
+                    ),
+                    modifier = Modifier.clickable {
+                        navController.navigate(NavigationItem.SIGNUP)
+                    }
                 )
             }
         }
