@@ -65,7 +65,7 @@ fun ProfileScreen(navController: NavController) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "Profile",
+                    text = "My Profile",
                     color = Color.Black,
                     textAlign = TextAlign.Center,
                     style = TextStyle(
