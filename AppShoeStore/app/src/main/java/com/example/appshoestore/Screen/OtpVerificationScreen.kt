@@ -43,11 +43,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun OtpVerificationScreen() {
+fun OtpVerificationScreen(navController: NavController) {
     var scrollState = rememberScrollState()
     Box(
         Modifier
@@ -59,7 +60,7 @@ fun OtpVerificationScreen() {
     {
         Column {
             Spacer(modifier = Modifier.height(16.dp))
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBackIos,
                     contentDescription = null,
@@ -112,11 +113,13 @@ fun OtpVerificationScreen() {
                 painter = painterResource(id = R.drawable.img_encode), contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(450.dp)
+                    .height(400.dp)
             )
             Spacer(modifier = Modifier.height(32.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(NavigationItem.NEW_PASSWORD)
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -133,6 +136,7 @@ fun OtpVerificationScreen() {
                     )
                 )
             }
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }

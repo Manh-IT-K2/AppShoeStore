@@ -13,10 +13,14 @@ import androidx.navigation.Navigation
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
+import com.example.appshoestore.Screen.CongratulationScreen
 import com.example.appshoestore.Screen.FavoriteScreen
+import com.example.appshoestore.Screen.ForgotPasswordScreen
 import com.example.appshoestore.Screen.HomeScreen
 import com.example.appshoestore.Screen.LoginScreen
+import com.example.appshoestore.Screen.NewPasswordScreen
 import com.example.appshoestore.Screen.NotificationScreen
+import com.example.appshoestore.Screen.OtpVerificationScreen
 import com.example.appshoestore.Screen.ProductDetailScreen
 import com.example.appshoestore.Screen.ProfileScreen
 import com.example.appshoestore.Screen.SearchScreen
@@ -35,7 +39,7 @@ import com.example.appshoestore.Screen.SignupScreen
 fun AppNavigationHost(navController: NavHostController, currentIndex: MutableIntState) {
 
 
-    NavHost(navController = navController, startDestination = NavigationItem.HOME) {
+    NavHost(navController = navController, startDestination = NavigationItem.LOGIN) {
 
         // Home
         composable(NavigationItem.HOME) {
@@ -125,6 +129,26 @@ fun AppNavigationHost(navController: NavHostController, currentIndex: MutableInt
         // order detail
         composable(NavigationItem.ORDER_DETAIL){
             MyOrderScreen(navController)
+        }
+
+        // forgot password
+        composable(NavigationItem.FORGOT_PASSWORD){
+            ForgotPasswordScreen(navController)
+        }
+
+        // otp
+        composable(NavigationItem.OTP){
+            OtpVerificationScreen(navController)
+        }
+
+        // new password
+        composable(NavigationItem.NEW_PASSWORD){
+            NewPasswordScreen(navController)
+        }
+
+        // congratulation
+        composable(NavigationItem.CONGRATULATION){
+            CongratulationScreen(navController)
         }
 
     }

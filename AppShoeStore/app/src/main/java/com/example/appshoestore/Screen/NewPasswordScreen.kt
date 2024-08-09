@@ -27,13 +27,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.appshoestore.Constant.CustomOutlinedTextField
 import com.example.appshoestore.Constant.CustomTextFieldPassword
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun NewPasswordScreen() {
+fun NewPasswordScreen(navController: NavController) {
     var scrollState = rememberScrollState()
     Box(
         modifier = Modifier
@@ -44,7 +45,7 @@ fun NewPasswordScreen() {
     ) {
         Column() {
             Spacer(modifier = Modifier.height(16.dp))
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navController.popBackStack()}) {
                 Icon(
                     imageVector = Icons.Default.ArrowBackIos,
                     contentDescription = null,
@@ -87,11 +88,13 @@ fun NewPasswordScreen() {
                 painter = painterResource(id = R.drawable.img_newpass), contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(450.dp)
+                    .height(350.dp)
             )
             Spacer(modifier = Modifier.height(32.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(NavigationItem.CONGRATULATION)
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -108,6 +111,7 @@ fun NewPasswordScreen() {
                     )
                 )
             }
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }

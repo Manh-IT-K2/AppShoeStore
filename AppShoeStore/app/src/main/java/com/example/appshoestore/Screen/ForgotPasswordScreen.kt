@@ -27,12 +27,13 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
 import com.example.appshoestore.Constant.CustomOutlinedTextField
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun ForgotPasswordScreen() {
+fun ForgotPasswordScreen(navController: NavController) {
     var scrollState = rememberScrollState()
     Box(
         modifier = Modifier
@@ -43,7 +44,7 @@ fun ForgotPasswordScreen() {
     ) {
         Column() {
             Spacer(modifier = Modifier.height(16.dp))
-            IconButton(onClick = { /*TODO*/ }) {
+            IconButton(onClick = { navController.popBackStack() }) {
                 Icon(
                     imageVector = Icons.Default.ArrowBackIos,
                     contentDescription = null,
@@ -79,11 +80,13 @@ fun ForgotPasswordScreen() {
                 painter = painterResource(id = R.drawable.img_forgot), contentDescription = null,
                 modifier = Modifier
                     .fillMaxWidth()
-                    .height(450.dp)
+                    .height(400.dp)
             )
             Spacer(modifier = Modifier.height(32.dp))
             Button(
-                onClick = { /*TODO*/ },
+                onClick = {
+                    navController.navigate(NavigationItem.OTP)
+                },
                 modifier = Modifier
                     .fillMaxWidth()
                     .height(50.dp),
@@ -100,6 +103,7 @@ fun ForgotPasswordScreen() {
                     )
                 )
             }
+            Spacer(modifier = Modifier.height(32.dp))
         }
     }
 }

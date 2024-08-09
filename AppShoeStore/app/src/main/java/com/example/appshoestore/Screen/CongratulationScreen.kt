@@ -25,11 +25,12 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.navigation.NavController
+import com.example.appshoestore.Navigation.NavigationItem
 import com.example.appshoestore.R
 
-@Preview
 @Composable
-fun CongratulationScreen() {
+fun CongratulationScreen(navController: NavController) {
     Box(
         Modifier
             .fillMaxSize()
@@ -73,7 +74,9 @@ fun CongratulationScreen() {
                 }
                 Spacer(modifier = Modifier.height(32.dp))
                 Button(
-                    onClick = { /*TODO*/ },
+                    onClick = {
+                        navController.navigate(NavigationItem.HOME)
+                    },
                     modifier = Modifier
                         .fillMaxWidth()
                         .padding(start = 16.dp, end = 16.dp)

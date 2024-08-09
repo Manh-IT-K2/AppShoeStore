@@ -127,6 +127,10 @@ fun BottomBar() {
                     NavigationItem.LOGIN,
                     NavigationItem.SEARCH,
                     NavigationItem.NOTIFICATION,
+                    NavigationItem.FORGOT_PASSWORD,
+                    NavigationItem.OTP,
+                    NavigationItem.NEW_PASSWORD,
+                    NavigationItem.CONGRATULATION,
                     "${NavigationItem.PRODUCT_DETAIL}/{id}"
                 )
             ) {

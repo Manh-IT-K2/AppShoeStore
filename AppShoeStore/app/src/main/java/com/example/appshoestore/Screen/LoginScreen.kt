@@ -128,7 +128,10 @@ fun LoginScreen(navController: NavController) {
                         fontSize = 16.sp,
                         fontWeight = FontWeight.Normal,
                         color = Color.Blue.copy(alpha = 0.5f)
-                    )
+                    ),
+                    modifier = Modifier.clickable {
+                        navController.navigate(NavigationItem.FORGOT_PASSWORD)
+                    }
                 )
             }
             Spacer(modifier = Modifier.height(32.dp))

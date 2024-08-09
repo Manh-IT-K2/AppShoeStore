@@ -18,5 +18,9 @@ object NavigationItem {
     const val ORDER_DETAIL = "order_detail"
     const val FULL_ORDER_DETAIL = "full_order_detail"
     const val ORDER_PLACED_DETAIL = "order_placed_detail"
+    const val FORGOT_PASSWORD = "forgot_password"
+    const val OTP = "otp"
+    const val NEW_PASSWORD = "new_password"
+    const val CONGRATULATION = "congratulation"
 
 }
