@@ -98,7 +98,6 @@ fun FavoriteScreen(navController: NavController) {
                             fontWeight = FontWeight.Bold,
                             color = Color.Black,
                             textAlign = TextAlign.Center,
-                            fontFamily = f1
                         )
                     )
                 }

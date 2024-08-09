@@ -65,13 +65,12 @@ fun ProfileScreen(navController: NavController) {
         Column(modifier = Modifier.fillMaxWidth()) {
             Row(modifier = Modifier.fillMaxWidth()) {
                 Text(
-                    text = "ProfileScreen",
+                    text = "Profile",
                     color = Color.Black,
                     textAlign = TextAlign.Center,
                     style = TextStyle(
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
-                        fontFamily = f1
                     ),
                     modifier = Modifier.fillMaxWidth()
                 )
@@ -120,7 +119,6 @@ fun ProfileScreen(navController: NavController) {
                         style = TextStyle(
                             fontSize = 20.sp,
                             fontWeight = FontWeight.Bold,
-                            fontFamily = f1,
                             textAlign = TextAlign.Center
                         )
                     )
@@ -130,7 +128,6 @@ fun ProfileScreen(navController: NavController) {
                         style = TextStyle(
                             fontSize = 12.sp,
                             fontWeight = FontWeight.Bold,
-                            fontFamily = f1,
                             textAlign = TextAlign.Center
                         )
                     )
@@ -196,8 +193,7 @@ fun ItemProfileUI(
             Text(
                 text = title, color = Color.Black, style = TextStyle(
                     fontSize = 16.sp,
-                    fontWeight = FontWeight.Normal,
-                    fontFamily = f1
+                    fontWeight = FontWeight.Normal
                 ),
                 modifier = Modifier.padding(start = 10.dp)
             )

@@ -175,7 +175,6 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
                             platformStyle = PlatformTextStyle(
                                 includeFontPadding = false
                             ),
-                            fontFamily = f1,
                             fontWeight = FontWeight.Bold
                         )
                     )
@@ -284,7 +283,7 @@ fun ProductDetailScreen(productId: String = "1", navController: NavController) {
                     .padding(horizontal = 22.dp),
                 color = Color.Black,
                 fontWeight = FontWeight.Light,
-                style = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false), fontWeight = FontWeight.Light, fontFamily = f1)
+                style = TextStyle(platformStyle = PlatformTextStyle(includeFontPadding = false), fontWeight = FontWeight.Light)
             )
             //Spacer(modifier = Modifier.weight(1f))
             Row(

@@ -85,7 +85,6 @@ fun SettingScreen(navController: NavController) {
                         text = "Settings",
                         color = Color.Black,
                         style = TextStyle(
-                            fontFamily = f1,
                             fontWeight = FontWeight.Bold,
                             fontSize = 22.sp,
                         ),
@@ -126,7 +125,6 @@ fun ItemSetting(
                         fontSize = 16.sp,
                         style = TextStyle(
                             fontWeight = FontWeight.Normal,
-                            fontFamily = f1
                         )
                     )
                     Text(

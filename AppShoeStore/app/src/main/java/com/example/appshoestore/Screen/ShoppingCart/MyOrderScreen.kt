@@ -54,7 +54,7 @@ fun MyOrderScreen(navController: NavController) {
             Row(verticalAlignment = Alignment.CenterVertically) {
                 Box(modifier = Modifier.weight(1f)) {
                     IconButton(onClick = {
-                        navController.popBackStack()
+                        navController.navigate(NavigationItem.HOME)
                     }) {
                         Icon(
                             imageVector = Icons.Default.ArrowBackIos,

@@ -61,7 +61,6 @@ fun ShoppingCartScreen(navController: NavController) {
                     style = TextStyle(
                         fontSize = 22.sp,
                         fontWeight = FontWeight.Bold,
-                        fontFamily = f1,
                         color = Color.Black,
                     )
                 )
