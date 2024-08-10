@@ -1,7 +1,7 @@
 # APP SHOESTORE
 Shoestore is a modern mobile application designed for shoe enthusiasts and fashion-forward individuals. Discover a wide range of stylish footwear from top brands, all in one place. Whether you're looking for the latest trends, timeless classics, or exclusive releases, Shoestore has something for everyone. With an intuitive interface, users can easily browse collections, filter by size, color, or brand, and make secure purchases with just a few taps. Stay updated with personalized recommendations and special offers tailored to your preferences. Experience the convenience of shopping for your favorite shoes anytime, anywhere with Shoestore.
 
-![Logo](AppShoeStore/assets/screen_app)
+![Logo](./AppShoeStore/assets/screen_app/logo_app.png)
 ## Authors
 - [Quan Văn Mạnh](https://github.com/Manh-IT-K2)
 
