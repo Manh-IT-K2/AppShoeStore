@@ -26,6 +26,7 @@ public class UserImpl implements UserService {
             user.setUserName(u.getUserName());
             user.setPassWord(u.getPassWord());
             user.setEmail(u.getEmail());
+            user.setAvatar("");
 
             // Insert the user into the "user" collection
             mongoTemplate.insert(user, "user");
